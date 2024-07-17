@@ -4,7 +4,7 @@ import QuestionContainer from '../components/QuestionContainer.jsx';
 
 const Home = () => {
   return (
-    <div>
+    <div className=''>
         <Header />
         <QuestionContainer/>
     </div>
