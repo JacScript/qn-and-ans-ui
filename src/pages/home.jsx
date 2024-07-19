@@ -6,10 +6,8 @@ import { useLocation,useNavigate } from 'react-router-dom';
 const Home = () => {
    const location = useLocation();
 
-   console.log(`${location.state.id}`);
-
   return (
-    <div className=''  >
+    <div>
         <Header />
         <QuestionContainer/>
     </div>

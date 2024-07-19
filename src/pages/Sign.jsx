@@ -1,54 +1,71 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 
 const Sign = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-     const [email, setEmail] = useState('');
-     const [password, setPassword] = useState('');
 
-     const submitHandler = async (e) => {
-          e.preventDefault();
+  const navigate = useNavigate();
 
-        try {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-            await axios.post('http://localhost:3000/sign', {
-                email, password
-            }).then((response) => {
-                if(response.data = 'Exist'){
-                     alert("User is already exist")
-                } else if(response.data = "Not - Exist"){
-                    history('/'), {state:{id: email}}
-                }
-            });
-            
-        } catch (error) {
-            console.log(error);
-        }
-     }
-
+    try {
+      await Axios.post("http://localhost:3000/auth/signup", {
+          username,  
+          email,
+          password,
+        })
+        .then((response) => {
+          if(response.data.status){
+            navigate('/')
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <div>
+    <div className="w-full h-96">
+      <h1>Sign Up</h1>
 
-        <h1>Sign Up</h1>
+      <form className="flex flex-col gap-4 space-x-6 w-4/6 mx-auto" onSubmit={handleSubmit}>
+        <label htmlFor="username">UserName:</label>
+        <input
+          type="text"
+          placeholder="Username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
 
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          placeholder="Email"
+          autoComplete="off"
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-        <form action='POST'>
-             <input type='email' onChange={e => setEmail(e.target.value)} placeholder='email' id='' name=''/>
-             <input type='password' onChange={e => setPassword(e.target.value)} placeholder='password' id='' name=''/>
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          placeholder="******"
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-             <input type="submit" onClick={submitHandler}/>
-        </form>
+        <button type="submit">Sign Up</button>
+      </form>
 
-        <br />
-        <p>OR</p>
-        <br />
-
-        <Link to='/login'>LOGIN PAGE</Link>
+      <br />
+      <p>OR</p>
+      <br />
+      <p>Have an account</p>
+      <Link to="/login">LOGIN PAGE</Link>
     </div>
-  )
-}
+  );
+};
 
-export default Sign
+export default Sign;

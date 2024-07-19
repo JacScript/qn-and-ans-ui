@@ -1,68 +1,67 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
-   
-     const history = useNavigate();
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    async function  submitHandler(e){
-        e.preventDefault();
+  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
 
-        try {
-          await axios
-            .post("http://localhost:3000/login", {
-              email,
-              password,
-            })
-            .then((response) => {
-              if (response.data = "Exist") {
-                alert('User Logged in');
-                history("/",{state:{id:email}});
-              } else if(response.data = 'Not - Exist'){
-                alert("Useris Not logged in")
-              }
-            });
-        } catch (err) {
-          console.log(err);
-        }
+  const navigate = useNavigate();
+
+  Axios.defaults.withCredentials = true;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await Axios.post("http://localhost:3000/auth/login", {
+          email,
+          password,
+        })
+        .then((response) => {
+          if(response.data.status){
+            navigate('/')
+          }
+        });
+    } catch (error) {
+      console.log(error);
     }
-
-
-
-
+  };
 
   return (
-    <div className="">
+    <div className="w-full h-96">
       <h1>Login</h1>
-      <form action="POST" className="">
+
+      <form className="flex flex-col gap-4 space-x-6 w-4/6 mx-auto" onSubmit={handleSubmit}>
+        
+
+        <label htmlFor="email">Email:</label>
         <input
           type="email"
-          onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
-          name=""
-          id=""
-        />
-        <input
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          name=""
-          id=""
+          autoComplete="off"
+          onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button type="submit" onClick={submitHandler}>Submit</button>
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          placeholder="******"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <button type="submit" >Sign Up</button>
       </form>
 
       <br />
       <p>OR</p>
-      <br />
 
-      <Link to="/sign">Sign in Page</Link>
+      <Link to="/forgotPassword">Forgot Password</Link>
+      <br />
+      <p>Dont Have an account</p>
+      <Link to="/sign">SIGN UP PAGE</Link>
     </div>
   );
 };
