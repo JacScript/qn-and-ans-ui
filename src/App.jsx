@@ -7,6 +7,7 @@ import Sign from './pages/Sign.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 import './App.css';
+import ResetPassword from './pages/ResetPassword.jsx';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <Route path='/login' element={<Login/>} />
       <Route path='/sign' element={<Sign/>} />
       <Route path='/forgotPassword' element={<ForgotPassword/>} />
+      <Route path='/resetPassword' element={<ResetPassword/>} />
     </Routes>
     </div>
   )
