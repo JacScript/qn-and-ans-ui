@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import Axios from "axios"
 import { useNavigate } from 'react-router-dom'
+import Button from "../components/ButtonComponent";
+
+
+import '../App.css'
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
@@ -29,10 +33,11 @@ const ForgotPassword = () => {
 
 
   return (
-    <div>
-        <form action='POST'  >
-            <h2>Forgot Passoword</h2>
+    <div className='sign-up-container'>
+        <form action='POST' className='sign-up-form' >
+            <h2 className='font-bold text-center text-2xl mb-4'>Forgot Passoword</h2>
             <input 
+            className='py-[8px] bg-[rgba(255,255,255,.1)] mb-[16px] pl-2'
                type='email'
                autoComplete='off'
                placeholder='Email'
@@ -40,7 +45,7 @@ const ForgotPassword = () => {
                />
 
               
-               <button type='submit' onClick={handleSubmit} >Reset</button>
+               <Button type='submit' onClick={handleSubmit} title='Reset'/>
         </form>
     </div>
   )

@@ -5,3 +5,48 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
+
+.sign-up-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  color: white;
+}
+
+.sign-up-form{
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label{
+  display: block;
+  margin: 16px 0 0px 0; 
+}
+
+input{
+  width: 100%;
+  padding-top: 16px;
+  margin-bottom: 16px;
+  /* box-sizing: border-box; */
+  border-radius: 5px;
+}
+
+button{
+ width: 100%;
+ padding: 10px;
+ background: #3498db;
+ color: #fff;
+ border: none;
+ border-radius: 4px;
+ cursor: pointer;
+
+}
+
+button{
+  background-color: #2980b9;
+}

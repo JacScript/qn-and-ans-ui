@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import Button from "../components/ButtonComponent";
+
+
+
+import "../App.css";
 
 const Login = () => {
-  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
 
   const navigate = useNavigate();
 
@@ -17,28 +20,25 @@ const Login = () => {
 
     try {
       await Axios.post("http://localhost:3000/auth/login", {
-          email,
-          password,
-        })
-        .then((response) => {
-          if(response.data.status){
-            navigate('/')
-          }
-        });
+        email,
+        password,
+      }).then((response) => {
+        if (response.data.status) {
+          navigate("/");
+        }
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="w-full h-96">
-      <h1>Login</h1>
-
-      <form className="flex flex-col gap-4 space-x-6 w-4/6 mx-auto" onSubmit={handleSubmit}>
-        
-
+    <div className="sign-up-container">
+      <form className="sign-up-form" onSubmit={handleSubmit}>
+        <h1 className="font-bold text-center text-2xl mb-4">Login</h1>
         <label htmlFor="email">Email:</label>
         <input
+        className="py-[8px] bg-[rgba(255,255,255,.1)] pl-2"
           type="email"
           placeholder="Email"
           autoComplete="off"
@@ -47,21 +47,22 @@ const Login = () => {
 
         <label htmlFor="password">Password:</label>
         <input
+        className="py-[8px] bg-[rgba(255,255,255,.1)] pl-2 mb-4"
           type="password"
           placeholder="******"
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button type="submit" >Sign Up</button>
+        <Button type="submit" title="Sign Up" />
+        <p className="text-center pt-2">OR</p>
+        <div className="text-xs">
+          <Link to="/forgotPassword">Forgot Password</Link>
+          <div className="flex my-2">
+          <p className="mr-2">Dont Have an account:</p>
+          <Link to="/sign" >SIGN UP PAGE</Link>
+          </div>
+        </div>
       </form>
-
-      <br />
-      <p>OR</p>
-
-      <Link to="/forgotPassword">Forgot Password</Link>
-      <br />
-      <p>Dont Have an account</p>
-      <Link to="/sign">SIGN UP PAGE</Link>
     </div>
   );
 };
