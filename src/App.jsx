@@ -20,20 +20,20 @@ const App = () => {
   const [checkingAuth, setCheckingAuth] = useState(true);
 
 
-  useEffect( () => {
-    Axios.get("http://localhost:3000/auth/profile", {
-      username,
-    }).then(() => {
-      (response) => {
-        console.log(response);
-        setCheckingAuth(false);
-      }
-    }).catch(
-      (response) => {
-        setCheckingAuth(false)
-      }
-    )
-  }, [])
+  // useEffect( () => {
+  //   Axios.get("http://localhost:3000/auth/profile", {
+  //     username,
+  //   }).then(() => {
+  //     (response) => {
+  //       console.log(response);
+  //       setCheckingAuth(false);
+  //     }
+  //   }).catch(
+  //     (response) => {
+  //       setCheckingAuth(false)
+  //     }
+  //   )
+  // }, [])
 
 
 
