@@ -6,96 +6,43 @@ import Button from "../components/ButtonComponent";
 import "../App.css";
 import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import LoginUser  from "../Store/userAction.js";
+import LoginUser  from "../Store/UserSlice.js";
 
 const Login = () => {
 
-  //state
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(false);
+    // State for form fields
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-//redux state
-const {loading, error } = useSelector((state) => state.user)
+    // Access loading and error state from Redux
+    const { loading, error } = useSelector((state) => state.user);
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  const navigate = useNavigate();
-
-  // Axios.defaults.withCredentials = true;
-
-  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
+    const userCredentials = { email, password };
 
-    let userCredentials = { email, password };
-    dispatch(LoginUser(userCredentials), config).then((result) => {
-      if (result.payload) {
-        setEmail("");
-        setPassword("");
-        navigate("/");
-      }
-    });
+    // Dispatch LoginUser action with user credentials
+    try {
+      await dispatch(LoginUser(userCredentials)); // Wait for action completion
+      // Handle successful login (optional, depends on your API response)
+      setEmail("");
+      setPassword("");
+      navigate("/"); // Redirect on success
+    } catch (error) {
+      console.error("Login error:", error); // Log the error for debugging
+    }
   };
- 
-
-  //   try {
-  //     const userCredentials = {
-  //       email, password
-  //     }
-  //   } catch (error) {
-  //       console.log(error)
-  //   }
-  // }
-
-  //   try {
-
-  //     const config = {
-  //       headers: {
-  //         "Content-type": "application/json"
-  //       }
-  //     }
-
-  //     setLoading(true);
-
-  //     const { data } = await Axios.post(
-  //       "http://localhost:3000/auth/login",
-  //       { email, password },
-  //       config
-  //     );
-
-  //     await Axios.post("http://localhost:3000/auth/login", {
-  //       email,
-  //       password,
-  //     }, config).then((response) => {
-  //       if (response.data.status) {
-  //     localStorage.setItem("userInfo", JSON.stringify())
-  //         navigate("/");
-  //       }
-  //     });
-  //     console.log(data);
-  //     localStorage.setItem("userInfo", JSON.stringify(data)); 
-  //     setLoading(false);
-  //   } catch (error) {
-  //     setError(error.response.data.message);
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <div>
       <Header />
 
-       {error && ( <div>{error}</div>) }
-      {/* {error && <ErrorMessage/>} */}
-        {/* {loading && <Loading />} */}
+       {error && (<div>{error}</div>)}
       <div className="sign-up-container">
         <form className="sign-up-form" onSubmit={handleSubmit}>
           <h1 className="font-bold text-center text-2xl mb-4">Login</h1>
