@@ -6,45 +6,42 @@ import Button from "../components/ButtonComponent";
 import "../App.css";
 import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import LoginUser  from "../Store/UserSlice.js";
+import {LoginUser} from "../Store/UserSlice.js";
 
-const Login = () => {
+const Login = () => { 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    // State for form fields
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  // State for form fields
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    // Access loading and error state from Redux
-    const { loading, error } = useSelector((state) => state.user);
+  // Access loading and error state from Redux
+  const { loading, error } = useSelector((state) => state.user);
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const userCredentials = { email, password };
-
     // Dispatch LoginUser action with user credentials
-    try {
-      await dispatch(LoginUser(userCredentials)); // Wait for action completion
-      // Handle successful login (optional, depends on your API response)
-      setEmail("");
-      setPassword("");
-      navigate("/"); // Redirect on success
-    } catch (error) {
-      console.error("Login error:", error); // Log the error for debugging
-    }
+    dispatch(LoginUser(userCredentials)).then((result) => {
+      if (result.payload) {
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      }
+    });
   };
+   
 
   return (
     <div>
       <Header />
 
-       {error && (<div>{error}</div>)}
       <div className="sign-up-container">
         <form className="sign-up-form" onSubmit={handleSubmit}>
+      {error && <div className="text-white">{error}</div>}
+
           <h1 className="font-bold text-center text-2xl mb-4">Login</h1>
           <label htmlFor="email">Email:</label>
           <input
@@ -65,7 +62,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button type="submit" title={ loading ? "Loading...." : 'Login'} />
+          <Button type="submit" title={loading ? "Loading...." : "Login"} />
           <p className="text-center pt-2">OR</p>
           <div className="text-xs">
             <Link to="/forgotPassword">Forgot Password</Link>
