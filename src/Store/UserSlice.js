@@ -13,7 +13,7 @@ export const LoginUser = createAsyncThunk(
     
     const request = await axios.post("http://localhost:3000/auth/login", // Replace with your login endpoint
       userCredentials, config  )
-      const response = await request.data.data;
+      let response = await request.data.user;
       localStorage.setItem("user", JSON.stringify(response)); // Store token in localStorage
       // console.log(response);
       return response;

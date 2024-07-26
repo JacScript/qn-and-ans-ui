@@ -15,7 +15,7 @@ Axios.defaults.withCredentials = true;
 
 
 const App = () => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState();
 
   const [checkingAuth, setCheckingAuth] = useState(true);
 
@@ -41,7 +41,7 @@ const App = () => {
 
   return (
     <div className="bg-[#393939] w-screen h-screen">
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={user}>
       <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/ask" element={<Ask />} />
