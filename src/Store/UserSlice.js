@@ -1,6 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"; // Assuming you're using Axios (adjust for other HTTP libraries)
 
+
+export const signUpUser =  createAsyncThunk(
+  "user/SignUpUser",
+  async(userCredentials) => {
+    const config = {
+      headers: {
+        "Content-type" : "application/json",
+      },
+    };
+
+    const request =  await axios.post("http://localhost:3000/auth/signup",
+      userCredentials, config)
+    let response = await request.data.user;
+    localStorage.setItem("user", JSON.stringify(response));
+    console.log(response);
+    return response;
+ }
+)
+
 export const LoginUser = createAsyncThunk(
   "user/LoginUser",
   async(userCredentials) => {
@@ -12,30 +31,12 @@ export const LoginUser = createAsyncThunk(
         };
     
     const request = await axios.post("http://localhost:3000/auth/login", // Replace with your login endpoint
-      userCredentials, config  )
+      userCredentials, config)
       let response = await request.data.user;
       localStorage.setItem("user", JSON.stringify(response)); // Store token in localStorage
       // console.log(response);
       return response;
   }
-  // async (userCredentials) => {
-
-  //   const config = {
-  //     headers: {
-  //       "Content-type": "application/json",
-  //     },
-  //   };
-
-  //   const request = await axios.post(
-  //     "http://localhost:3000/auth/login", // Replace with your login endpoint
-  //     userCredentials, config 
-  //   );    
-
-  //   const response = request.data.data
-  //   localStorage.setItem("user", JSON.stringify(response)); // Store token in localStorage
-  //   console.log(response);
-  //   return response; // Assuming user data is in response.data.user
-  // }
 );
 
 
@@ -49,6 +50,25 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+    .addCase(signUpUser.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(signUpUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.user = action.payload; // Assuming LoginUser returns user data
+      state.error = null;
+    })
+    .addCase(signUpUser.rejected, (state, action) => {
+      state.loading = false;
+      state.user = null;
+      console.log(action.error.message);
+      if(action.error.message === 'password incorrect' ||  action.error.message === "Request failed with status code 500"  ) {
+        state.error = "Fail to regester"
+      } else {
+        state.error = action.error.message;
+      }
+    })
       .addCase(LoginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -68,6 +88,7 @@ const userSlice = createSlice({
           state.error = action.error.message;
         }
       });
+      
   },
 });
 

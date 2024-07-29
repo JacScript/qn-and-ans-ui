@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import Button from "../components/ButtonComponent";
-
+import {LoginUser} from "../Store/UserSlice.js";
 import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import {LoginUser} from "../Store/UserSlice.js";
 
 import "../App.css";
 
@@ -20,6 +19,7 @@ const Login = () => {
 
   // Access loading and error state from Redux
   const { loading, error } = useSelector((state) => state.user);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -70,7 +70,7 @@ const Login = () => {
             <Link to="/forgotPassword">Forgot Password</Link>
             <div className="flex my-2">
               <p className="mr-2">Dont Have an account:</p>
-              <Link to="/sign">SIGN UP PAGE</Link>
+              <Link to="/signup">SIGN UP PAGE</Link>
             </div>
           </div>
         </form>

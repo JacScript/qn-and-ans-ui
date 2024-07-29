@@ -4,7 +4,7 @@ import Home from "./pages/Home.jsx";
 import { Route, Router, Routes } from "react-router-dom";
 import Ask from "./pages/Ask.jsx";
 import Login from "./pages/Login.jsx";
-import Sign from "./pages/Sign.jsx";
+import SignUp from "./pages/Sign.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import UserContext from "./UserContext.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
@@ -46,7 +46,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/ask" element={<Ask />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/sign" element={<Sign />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/resetPassword/:token" element={<ResetPassword />} />
       </Routes>

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import UserContext from "../UserContext";
+import Button from "./ButtonComponent";
 
 function getUser() {
   let user = localStorage.getItem("user");
@@ -15,6 +16,11 @@ function getUser() {
 const Header = () => {
   // const { user } = useContext(UserContext);
   const [user, setUser] = useState(getUser());
+
+  const handleLogout = () => {
+    localStorage.clear('user');
+    setUser(null);
+  }
 
   return (
     <div className="text-white flex w-full shadow-sm shadow-[rgba(0,0,0,.2)]">
@@ -43,13 +49,23 @@ const Header = () => {
 
       <div className=" flex-[1] h-full">
         {user ? (
-          <div className="text-center pb-[px] w-full h-full mt-[25px]">
-            {user.username}
+          <div className="text-center pb-[px] flex justify-between gap-4 items-center px-4 w-full h-full mt-[15px]">
+            {/* <Link to="/profile" className="flex-2">             */}
+           <span className="flex-2">
+           {user.username}
+            </span> 
+            {/* </Link> */}
+            <span>
+            <button className="bg-[#378ad3] text-[#fff] rounded-[5px] py-[8px]  flex-1 px-2 text-xs items-center" onClick={handleLogout}>Log Out</button>
+            </span>
           </div>
         ) : (
-          <div className="text-center pb-[px] w-full h-full mt-[25px]">
+          <div className="text-center pb-[px] flex justify-center gap-4 w-full h-full mt-[25px]">
             <Link to="/login" className="">
               Log In
+            </Link>
+            <Link to="/signup" className="">
+              Register
             </Link>
           </div>
         )}
