@@ -33,33 +33,6 @@ const SignUp = () => {
         navigate("/")
       }
     })
-
-    // setMessage(null);
-    // try {
-    //   const config = {
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //   };
-
-    //   setLoading(true);
-
-    //   const { data } = await Axios.post(
-    //     "http://localhost:3000/auth/signup",
-    //     {
-    //       username,
-    //       email,
-    //       password,
-    //     },
-    //     config
-    //   );
-
-    //   setLoading(false);
-    //   localStorage.setItem("userInfo", JSON.stringify(data));
-    // } catch (error) {
-    //   setError(error.response.data.message);
-    //   console.log(error);
-    // }
   };
 
   return (

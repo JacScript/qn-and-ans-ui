@@ -8,13 +8,14 @@ import SignUp from "./pages/Sign.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import UserContext from "./UserContext.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
+import QuestionPage from "./pages/QuestionPage.jsx";
 
 import "./App.css";
 
 Axios.defaults.withCredentials = true;
 
 
-const App = () => {
+const App = ({history}) => {
   const [user, setUser] = useState();
 
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="/ask" element={<Ask />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="questions/:id" element={<QuestionPage/>} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/resetPassword/:token" element={<ResetPassword />} />
       </Routes>
