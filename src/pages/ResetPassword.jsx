@@ -13,7 +13,6 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Reset Activated");
     try {
       await Axios.post("http://localhost:3000/auth/resetPassword/" + token, {
         password,
