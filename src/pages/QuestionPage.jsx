@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 const QuestionPage = ({id}) => {
-  console.log(`${id}`)
+  console.log(id)
 
   const [question, setQuestion] = useState(null);
   // const [error, setError] = useState(null);
