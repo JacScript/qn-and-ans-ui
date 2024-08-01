@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import Axios from "axios"
-import { useNavigate } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Button from "../components/ButtonComponent";
 
 
 import '../App.css'
 
 const ForgotPassword = () => {
-    const navigate = useNavigate();
+    const history = useHistory();
 
     const [email, setEmail] = useState('') 
 
@@ -22,7 +22,7 @@ const ForgotPassword = () => {
           .then((response) => {
             if(response.data.status){
                 alert('Check your email for reset passowrd link')
-              navigate('/')
+              history.push('/')
             }
           });
       } catch (error) {

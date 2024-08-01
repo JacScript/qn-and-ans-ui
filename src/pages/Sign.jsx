@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import Button from "../components/ButtonComponent";
 import { signUpUser } from "../Store/UserSlice.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,8 +9,7 @@ import "../App.css";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+const history = useHistory;
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +29,7 @@ const SignUp = () => {
         setUsername("");
         setEmail("");
         setPassword("");
-        navigate("/")
+        history.push("/")
       }
     })
   };

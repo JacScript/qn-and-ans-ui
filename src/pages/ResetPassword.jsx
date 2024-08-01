@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Button from "../components/ButtonComponent";
 
 import "../App.css";
 
 const ResetPassword = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
   const { token } = useParams();
 
   const [password, setPassword] = useState("");
@@ -19,7 +19,7 @@ const ResetPassword = () => {
       }).then((response) => {
         if (response.data.status) {
           alert("Passowrd reset");
-          navigate("/");
+          history.push("/");
         }
         console.log(response.data);
       });

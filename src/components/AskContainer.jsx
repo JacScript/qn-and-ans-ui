@@ -1,13 +1,18 @@
 import React from "react";
 import ReactMarkdown from 'react-markdown';
-import gfm from "remark-gfm";
+// import gfm from "remark-gfm";
 import Button from "./ButtonComponent";
 import { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+
 
 
 
 const AskContainer = () => {
+  const history = useHistory();
+
+  useHistory
   const [title, setTitle] = useState("");
   const [questionText, setQuestionText] = useState("");
   const sendQuestion = async (e) => {
@@ -18,6 +23,10 @@ const AskContainer = () => {
         title,
         questionText
       });
+
+      if(response.data){
+          history.push('/')
+      }
 
       console.log('Question posted successfully:', response.data);
       // Handle success, e.g., clear form fields, show success message

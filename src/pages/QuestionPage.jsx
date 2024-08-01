@@ -1,39 +1,46 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import axios from "axios";
+import ReactMarkdown from 'react-markdown';
+import React, { useEffect, useState } from "react";
+import Header from "../components/Header";
 
-const QuestionPage = ({id}) => {
-  console.log(id)
-
+const QuestionPage = (props) => {
   const [question, setQuestion] = useState(null);
-  // const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/questions/${id}`) // Replace with your API endpoint
-        setQuestion(response.data);
-        // setLoading(false);
+        const { id } = props.match.params;
+        const response = await axios.get(
+          `http://localhost:3000/questions/${id}`,{withCrendetials: true}
+        ); // Replace with your API endpoint
+        // console.log("Question is being fetched");
+        const data = response.data.question;
+        setQuestion(data);
       } catch (error) {
         console.log(error.message);
-        // setLoading(false);
       }
     };
 
     fetchQuestion();
   }, []);
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (error) {
-  //   return <div>Error: {error}</div>;
-  // }
-    // console.log(props)
   return (
-    <div>{question}</div>
-  )
-}
+    <div className="text-white">
+      <Header/>
+      {question && (
+        <div className="flex flex-col w-11/12 h-dvh mx-auto">
+          <div className="my-8">
+            <h1 className=" text-3xl text-white">{question.title}</h1>
+          </div>
+          <div>
+          <ReactMarkdown>{question.questionText}</ReactMarkdown>
 
-export default QuestionPage
+            {/* <p>{question.questionText}</p> */}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default QuestionPage;
