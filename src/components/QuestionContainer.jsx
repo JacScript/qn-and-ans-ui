@@ -3,28 +3,47 @@ import QuestionRow from "./QuestionRow";
 import { Link } from "react-router-dom";
 import Ask from "../pages/Ask";
 import axios from "axios";
+import { getAllQuestions } from "../Store/QuestionSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const QuestionContainer = () => {
-  const [questions, setQuestions] = useState(null);
+  // const [questions, setQuestions] = useState(null);
+  const dispatch = useDispatch();
+  const {data,loading, error } = useSelector((state) => state.questions);
   
 
+  // useEffect(() => {
+
+  //   const fetchQuestions = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/questions", {
+  //         withCrendetials: true,
+  //       });
+  //       const data = response.data;
+  //       console.log(data);
+  //       setQuestions(data);
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
+
+  //   fetchQuestions();
+  // }, []);
+
+  
   useEffect(() => {
-
-    const fetchQuestions = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/questions", {
-          withCrendetials: true,
-        });
-        const data = response.data;
-        console.log(data);
-        setQuestions(data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
-    fetchQuestions();
+    dispatch(getAllQuestions());
   }, []);
+
+  if (loading) {
+    return <div>Loading questions...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching questions: {error}</div>;
+  }
+
+  console.log(data)
 
   return (
     <div>
@@ -39,9 +58,9 @@ const QuestionContainer = () => {
       </div>
 
       {/* <div> */}
-        {questions && questions.map(question =>  
+        {/* {questions.map(question =>  
             <QuestionRow title={question.title}/> 
-          )}
+          )} */}
       {/* </div> */}
     </div>
   );

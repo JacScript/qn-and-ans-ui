@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
 import { useHistory, Link } from "react-router-dom";
 import Button from "../components/ButtonComponent";
 import { signUpUser } from "../Store/UserSlice.js";
