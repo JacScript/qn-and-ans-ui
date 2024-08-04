@@ -1,49 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import QuestionRow from "./QuestionRow";
 import { Link } from "react-router-dom";
 import Ask from "../pages/Ask";
 import axios from "axios";
-import { getAllQuestions } from "../Store/QuestionSlice";
-import { useDispatch, useSelector } from "react-redux";
+// import { getAllQuestions } from "../Store/QuestionSlice";
+// import { useDispatch, useSelector } from "react-redux";
 
 const QuestionContainer = () => {
-  // const [questions, setQuestions] = useState(null);
-  const dispatch = useDispatch();
-  const {questions,loading, error } = useSelector((state) => state.questions);
+  const [questions, setQuestions] = useState(null);
+  // const dispatch = useDispatch();
+  // const {questions,loading, error } = useSelector((state) => state.questions);
   
 
-  // useEffect(() => {
-
-  //   const fetchQuestions = async () => {
-  //     try {
-  //       const response = await axios.get("http://localhost:3000/questions", {
-  //         withCrendetials: true,
-  //       });
-  //       const data = response.data;
-  //       console.log(data);
-  //       setQuestions(data);
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   };
-
-  //   fetchQuestions();
-  // }, []);
-
-  
   useEffect(() => {
-    dispatch(getAllQuestions());
-  }, [dispatch]);
 
-  if (loading) {
-    return <div>Loading questions...</div>;
-  }
+    const fetchQuestions = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/questions", {
+          withCrendetials: true,
+        });
+        const data = response.data;
+        console.log(data);
+        setQuestions(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
-  if (error) {
-    return <div>Error fetching questions: {error}</div>;
-  }
+    fetchQuestions();
+  }, []);
 
-  // console.log(data)
+  
+
 
   return (
     <div>
