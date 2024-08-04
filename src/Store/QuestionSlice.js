@@ -1,26 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 const initialState = {
-    questions: [],
-    loading: false,
-    error: null,
-  };
-
+  questions: null,
+  loading: false,
+  error: null,
+};
 
 export const getAllQuestions = createAsyncThunk(
   "questions/getAllQuestions",
   async () => {
-    const response = await axios.get(`http://localhost:3000/questions`, {
-      withCrendetials: true,
+    const response = await axios.get("http://localhost:3000/questions", {
+      withCredentials: true,
     });
-    const data = response.data.question;
-    return data;
+    // const questions = response.data.questions;
+    // return questions;
+    return response.data.questions
   }
 );
-
-
 
 const questionsSlice = createSlice({
   name: "questions",
@@ -35,6 +32,7 @@ const questionsSlice = createSlice({
       .addCase(getAllQuestions.fulfilled, (state, action) => {
         state.loading = false;
         state.questions = action.payload;
+        state.error = null
       })
       .addCase(getAllQuestions.rejected, (state, action) => {
         state.loading = false;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import QuestionRow from "./QuestionRow";
 import { Link } from "react-router-dom";
 import Ask from "../pages/Ask";
@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 const QuestionContainer = () => {
   // const [questions, setQuestions] = useState(null);
   const dispatch = useDispatch();
-  const {data,loading, error } = useSelector((state) => state.questions);
+  const {questions,loading, error } = useSelector((state) => state.questions);
   
 
   // useEffect(() => {
@@ -33,7 +33,7 @@ const QuestionContainer = () => {
   
   useEffect(() => {
     dispatch(getAllQuestions());
-  }, []);
+  }, [dispatch]);
 
   if (loading) {
     return <div>Loading questions...</div>;
@@ -43,7 +43,7 @@ const QuestionContainer = () => {
     return <div>Error fetching questions: {error}</div>;
   }
 
-  console.log(data)
+  // console.log(data)
 
   return (
     <div>
@@ -58,9 +58,9 @@ const QuestionContainer = () => {
       </div>
 
       {/* <div> */}
-        {/* {questions.map(question =>  
-            <QuestionRow title={question.title}/> 
-          )} */}
+        {questions && questions.map((question) =>  
+            <QuestionRow key={question._id} title={question.title}/> 
+          )}
       {/* </div> */}
     </div>
   );
