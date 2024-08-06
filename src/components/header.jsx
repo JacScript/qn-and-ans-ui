@@ -19,7 +19,7 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.clear('user');
-    cookies.remove('Token')
+    // cookies.remove('Token');
     setUser(null);
   }
 

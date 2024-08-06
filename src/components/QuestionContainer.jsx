@@ -6,7 +6,7 @@ import axios from "axios";
 // import { getAllQuestions } from "../Store/QuestionSlice";
 // import { useDispatch, useSelector } from "react-redux";
 
-const QuestionContainer = () => {
+const QuestionContainer = (props) => {
   const [questions, setQuestions] = useState(null);
   // const dispatch = useDispatch();
   // const {questions,loading, error } = useSelector((state) => state.questions);
@@ -20,7 +20,6 @@ const QuestionContainer = () => {
           withCrendetials: true,
         });
         const data = response.data;
-        console.log(data);
         setQuestions(data);
       } catch (error) {
         console.log(error.message);
@@ -47,7 +46,7 @@ const QuestionContainer = () => {
 
       {/* <div> */}
         {questions && questions.map((question) =>  
-            <QuestionRow key={question._id} title={question.title}/> 
+            <QuestionRow key={question._id} title={question.title} id={question._id}/> 
           )}
       {/* </div> */}
     </div>

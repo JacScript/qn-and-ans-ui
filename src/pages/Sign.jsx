@@ -1,43 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import Button from "../components/ButtonComponent";
-import { signUpUser } from "../Store/UserSlice.js";
+import { SignUpUser } from "../Store/UserSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 import "../App.css";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-const history = useHistory;
+  const history = useHistory();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { loading, error } = useSelector((state) => state.user);
 
-
-  const handleSubmit =  (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     // console.table(username, email,password)
 
-    const userCredentials = { username, email , password};
+    const userCredentials = { username, email, password };
     //Dispatch SignUpUser action with user credentilas
-    dispatch(signUpUser(userCredentials)).then((result) => {
-      if(result.payload){
+    dispatch(SignUpUser(userCredentials)).then((result) => {
+      if (result.payload) {
         setUsername("");
         setEmail("");
         setPassword("");
-        history.push("/")
+        history.push("/");
       }
-    })
+    });
   };
 
   return (
     <div className="sign-up-container">
       <form className="sign-up-form" onSubmit={handleSubmit}>
-      {error && <div className="text-white">{error}</div>}
+        
         <h1 className="font-bold text-center text-2xl mb-4">Sign Up</h1>
+        {error && 
+          <div className="text-white bg-[rgba(255,0,0,0.1)] p-2 text-xs border-2 rounded-[5px] border-red-600 text-center mb-2">
+            {error}
+          </div>
+        }
         <label htmlFor="username">UserName:</label>
         <input
           className="py-[8px] bg-[rgba(255,255,255,.1)] pl-2"

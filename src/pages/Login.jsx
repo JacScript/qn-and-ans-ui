@@ -43,7 +43,7 @@ const Login = () => {
 
       <div className="sign-up-container">
         <form className="sign-up-form" onSubmit={handleSubmit}>
-      {error && <div className="text-white">{error}</div>}
+      {error && <div className="text-white bg-[rgba(255,0,0,0.1)] p-2 text-xs border-2 rounded-[5px] border-red-600 text-center">{error}</div>}
 
           <h1 className="font-bold text-center text-2xl mb-4">Login</h1>
           <label htmlFor="email">Email:</label>

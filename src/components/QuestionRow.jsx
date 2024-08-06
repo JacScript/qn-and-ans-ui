@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
-const QuestionRow = ({title}) => {
+
+const QuestionRow = ({title,id}) => {
   return (
     <div className="">
       <div className="bg-[rgba(255,255,255,.1)] py-[px] w-11/12 mx-auto flex justify-between border-t-2 border-t-[#555]">
@@ -20,9 +22,9 @@ const QuestionRow = ({title}) => {
         </div>
 
         <div className="px-[30px] flex flex-col w-4/5">
-          <a href="#" className="text-[#3ca4ff] text-[1.1rem] mb-[2px]">
+          <Link to={`/questions/${id}`} className="text-[#3ca4ff] text-[1.1rem] mb-[2px]">
             {title}
-          </a>
+          </Link>
           <div className="flex justify-between">
             <div className="flex">
               <span className="text-[#9cc3db] bg-[#3e4a52] p-[4px] rounded-[4px] text-[.9rem] mr-[6px]">

@@ -61,7 +61,7 @@ const AskContainer = () => {
         {/* <div className="bg-[#444] rounded-[5px] p-[20px]"> */}
         {/* <ReactMarkdown plugins={[gfm]} children={''} /> */}
 
-        <div className="w-5/6 mx-auto p-[20px] bg-[#444] nb-[20px] rounded-[5px]">
+        <div className="w-5/6 mx-auto p-[20px] bg-[#444] nb-[20px] rounded-[5px] text-white">
           <ReactMarkdown>{questionText}</ReactMarkdown>
         </div>
 
