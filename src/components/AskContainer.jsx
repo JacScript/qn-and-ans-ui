@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactMarkdown from 'react-markdown';
 // import gfm from "remark-gfm";
 import Button from "./ButtonComponent";
-import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { ReactTags } from 'react-tag-autocomplete'
 
 
 
 
 const AskContainer = () => {
-  const history = useHistory();
+  const reactTags = React.createRef()
 
-  useHistory
+
+  const history = useHistory();
   const [title, setTitle] = useState("");
   const [questionText, setQuestionText] = useState("");
+  const [tags, setTags] = useState("");
+  const [tagSuggestions, setTagSuggestions] = useState("")
+
+
+
+
   const sendQuestion = async (e) => {
     e.preventDefault();
 
@@ -35,6 +42,25 @@ const AskContainer = () => {
       // Handle error, e.g., display error message to user
     }
   };
+
+
+  function getTags() {
+    axios.get("http://localhost:3000/tags")
+    .then(response => {
+      setTagSuggestions(response.data)
+    })
+  }
+
+  function onTagAddition() {
+    console.log(arguments)
+  }
+
+  function onTagDelete(){
+    console.log(arguments)
+  }
+
+
+  useEffect(() => {getTags()}, []);
 
   return (
     <div className="flex flex-col w-11/12 h-dvh mx-auto ">
@@ -69,6 +95,13 @@ const AskContainer = () => {
           <Button type="submit" title="Post a Question" />
         </div>
       </form>
+      <ReactTags
+        ref={reactTags}
+        tags={tags}
+        suggestions={tagSuggestions}
+        onDelete={e => onTagDelete(e)}
+        onAddition={e => onTagAddition(e)}
+      />
     </div>
   );
 };
