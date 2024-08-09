@@ -13,7 +13,7 @@ const AskContainer = () => {
   const [title, setTitle] = useState("");
   const [questionText, setQuestionText] = useState("");
   const [tags, setTags] = useState([]);
-  const [tagSuggestions, setTagSuggestions] = useState(["JS","HTML"]);
+  const [tagSuggestions, setTagSuggestions] = useState([]);
 
   const sendQuestion = async (e) => {
     e.preventDefault();
@@ -49,11 +49,11 @@ const AskContainer = () => {
     }
   }
 
-  function onTagAddition() {
-    console.log(arguments)
-    // const chosenTags = tags;
-    // chosenTags.push(tag);
-    // setTags(chosenTags);
+  function onTagAddition(tag) {
+    // console.log(arguments)
+    const chosenTags = tags;
+    chosenTags.push(tag);
+    setTags(chosenTags);
   }
 
 
