@@ -4,16 +4,13 @@ import ReactMarkdown from "react-markdown";
 import Button from "./ButtonComponent";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { ReactTags } from "react-tag-autocomplete";
 
 const AskContainer = () => {
-  const reactTags = React.createRef();
 
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [questionText, setQuestionText] = useState("");
   const [tags, setTags] = useState([]);
-  const [tagSuggestions, setTagSuggestions] = useState([]);
 
   const sendQuestion = async (e) => {
     e.preventDefault();
@@ -35,36 +32,6 @@ const AskContainer = () => {
       // Handle error, e.g., display error message to user
     }
   };
-
-
-  async function getTags() {
-    try {
-      const request = await axios.get("http://localhost:3000/tags");
-      const response = request.data
-      // console.log(response);
-      setTagSuggestions(response);
-    } catch (error) {
-      console.error(error);
-      // Handle potential errors here (e.g., display an error message)
-    }
-  }
-
-  function onTagAddition(tag) {
-    // console.log(arguments)
-    const chosenTags = tags;
-    chosenTags.push(tag);
-    setTags(chosenTags);
-  }
-
-
-
-  function onTagDelete() {
-    console.log(arguments);
-  }
-
-  useEffect(() => {
-    getTags();
-  }, []);
 
   return (
     <div className="flex flex-col w-11/12 h-dvh mx-auto ">
@@ -94,14 +61,12 @@ const AskContainer = () => {
         <div className="w-5/6 mx-auto p-[20px] bg-[#444] nb-[20px] rounded-[5px] text-white">
           <ReactMarkdown>{questionText}</ReactMarkdown>
         </div>
-        <div>
-          <ReactTags
-            ref={reactTags}
-            tags={tags}
-            suggestions={tagSuggestions}
-            onDelete={e => onTagDelete(e)}
-            onAddition={e => onTagAddition(e)}
-          />
+        <div className="flex bg-red-600 w-5/6 mx-auto my-2 flex-wrap min-h-[48px]">
+          <ul>
+            <li>tag1</li>
+            <li>tag2</li>
+            <li>tag3</li>
+          </ul>
         </div>
         <div className="w-5/6 mx-auto mt-6">
           <Button type="submit" title="Post a Question" />
