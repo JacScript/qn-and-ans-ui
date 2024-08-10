@@ -34,9 +34,14 @@ const AskContainer = () => {
   };
 
   const addTags = (e) => {
-    if(e.key === "Enter"){
-       setTags([...tags, e.target.value])
+    if(e.target.value !== ""){
+       setTags([...tags, e.target.value]);
+       e.target.value = "";
     }
+  }
+
+  const removeTag = (indexToRemove) => {
+    setTags(tags.filter((_,index) => index !== indexToRemove))
   }
 
   return (
@@ -72,14 +77,14 @@ const AskContainer = () => {
 
              {
               tags.map((tag, index) => 
-                <li key={index} className="w-auto h-[32px] flex items-center justify-center text-[#ffffff] py-0 px-[8px] text-[14px] rounded-[5px] mt-0 mr-[8px] mb-[8px] ml-0 list-none bg-[#0052cc]"><span className="mt-[3px]">{tag}</span><span className="flex items-center mt-0"><i className="fa-solid fa-xmark ml-[4px] mt-[3px] cursor-pointer text-[15px]"/></span></li>
+                <li key={index} className="w-auto h-[32px] flex items-center justify-center text-[#ffffff] py-0 px-[8px] text-[14px] rounded-[5px] mt-0 mr-[8px] mb-[8px] ml-0 list-none bg-[#0052cc]"><span className="mt-[3px]">{tag}</span><span className="flex items-center mt-0"><i className="fa-solid fa-xmark ml-[4px] mt-[3px] cursor-pointer text-[15px]" onClick={() => removeTag(index)}/></span></li>
               )
              }
           </ul>
           <input 
             type="text"
             placeholder="Press enter to add tags"
-            onKeyUp={addTags}
+            onKeyUp={e => e.key === "Enter" ? addTags : null}
             className="flex-1 my-[8px] text[14px] bg-transparent "
           />
         </div>
