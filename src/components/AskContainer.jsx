@@ -10,7 +10,7 @@ const AskContainer = () => {
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [questionText, setQuestionText] = useState("");
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(["NodeJs", "MongoDB"]);
 
   const sendQuestion = async (e) => {
     e.preventDefault();
@@ -32,6 +32,12 @@ const AskContainer = () => {
       // Handle error, e.g., display error message to user
     }
   };
+
+  const addTags = (e) => {
+    if(e.key === "Enter"){
+       setTags([...tags, e.target.value])
+    }
+  }
 
   return (
     <div className="flex flex-col w-11/12 h-dvh mx-auto ">
@@ -61,12 +67,21 @@ const AskContainer = () => {
         <div className="w-5/6 mx-auto p-[20px] bg-[#444] nb-[20px] rounded-[5px] text-white">
           <ReactMarkdown>{questionText}</ReactMarkdown>
         </div>
-        <div className="flex bg-red-600 w-5/6 mx-auto my-2 flex-wrap min-h-[48px]">
-          <ul>
-            <li>tag1</li>
-            <li>tag2</li>
-            <li>tag3</li>
+        <div className="flex bg-red-600 w-5/6 mx-auto my-2 flex-wrap min-h-[40px] rounded-[5px] py-0 px-[10px]">
+          <ul className="flex flex-wrap p-0 mt-[8px] mx-0 mb-0">
+
+             {
+              tags.map((tag, index) => 
+                <li key={index} className="w-auto h-[32px] flex items-center justify-center text-[#ffffff] py-0 px-[8px] text-[14px] rounded-[5px] mt-0 mr-[8px] mb-[8px] ml-0 list-none bg-[#0052cc]"><span className="mt-[3px]">{tag}</span><span className="flex items-center mt-0"><i className="fa-solid fa-xmark ml-[4px] mt-[3px] cursor-pointer text-[15px]"/></span></li>
+              )
+             }
           </ul>
+          <input 
+            type="text"
+            placeholder="Press enter to add tags"
+            onKeyUp={addTags}
+            className="flex-1 my-[8px] text[14px] bg-transparent "
+          />
         </div>
         <div className="w-5/6 mx-auto mt-6">
           <Button type="submit" title="Post a Question" />
