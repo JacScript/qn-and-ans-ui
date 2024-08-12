@@ -10,15 +10,17 @@ const AskContainer = () => {
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [questionText, setQuestionText] = useState("");
-  const [tags, setTags] = useState(["NodeJs", "MongoDB"]);
+  const [tags, setTags] = useState([]);
 
   const sendQuestion = async (e) => {
     e.preventDefault();
+    console.log(tags);
 
     try {
       const response = await axios.post("http://localhost:3000/questions", {
         title,
         questionText,
+        tags
       });
 
       if (response.data) {
@@ -45,8 +47,8 @@ const AskContainer = () => {
   }
 
   return (
-    <div className="flex flex-col w-11/12 h-dvh mx-auto ">
-      <form onSubmit={sendQuestion}>
+    <div className="flex flex-col w-11/12 max-h-full mx-auto ">
+      <form action="#">
         <div className="w-5/6 mx-auto mt-6 bg-none">
           <input
             value={title}
@@ -72,7 +74,7 @@ const AskContainer = () => {
         <div className="w-5/6 mx-auto p-[20px] bg-[#444] nb-[20px] rounded-[5px] text-white">
           <ReactMarkdown>{questionText}</ReactMarkdown>
         </div>
-        <div className="flex bg-red-600 w-5/6 mx-auto my-2 flex-wrap min-h-[40px] rounded-[5px] py-0 px-[10px]">
+        <div className="flex w-5/6 mx-auto my-2 flex-wrap min-h-[40px] rounded-[5px] py-0 px-[10px]  box-border border-2  border-[#777]">
           <ul className="flex flex-wrap p-0 mt-[8px] mx-0 mb-0">
 
              {
@@ -84,12 +86,12 @@ const AskContainer = () => {
           <input 
             type="text"
             placeholder="Press enter to add tags"
-            onKeyUp={e => e.key === "Enter" ? addTags : null}
-            className="flex-1 my-[8px] text[14px] bg-transparent "
+            onKeyUp={e => e.key.trim() === "" ? addTags(e) : null}
+            className="flex-1 my-[8px] text[14px] bg-transparent text-white outline-none"
           />
         </div>
         <div className="w-5/6 mx-auto mt-6">
-          <Button type="submit" title="Post a Question" />
+          <Button title="Post a Question" onClick={sendQuestion} />
         </div>
       </form>
     </div>

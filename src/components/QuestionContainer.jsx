@@ -33,7 +33,7 @@ const QuestionContainer = (props) => {
 
 
   return (
-    <div>
+    <div className="bg-[#393939] w-screen h-full">
       <div className="flex justify-between py-[px] px-[20px] text-white my-6">
         <h1 className="text-[1.5rem]">Top Question</h1>
         <Link

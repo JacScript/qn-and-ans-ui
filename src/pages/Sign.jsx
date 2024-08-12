@@ -34,7 +34,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="sign-up-container">
+    <div className="sign-up-container bg-[#393939] w-screen h-screen">
       <form className="sign-up-form" onSubmit={handleSubmit}>
         
         <h1 className="font-bold text-center text-2xl mb-4">Sign Up</h1>

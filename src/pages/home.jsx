@@ -16,7 +16,7 @@ const Home = () => {
   // }, [history])
 
   return (
-    <div>
+    <div className='bg-[#393939] w-screen h-screen'>
         <Header />
         <QuestionContainer/>
     </div>

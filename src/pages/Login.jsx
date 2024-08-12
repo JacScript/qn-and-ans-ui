@@ -38,7 +38,7 @@ const Login = () => {
    
 
   return (
-    <div>
+    <div className="bg-[#393939] w-screen h-screen">
       <Header />
 
       <div className="sign-up-container">
@@ -68,7 +68,6 @@ const Login = () => {
           <Button type="submit" title={loading ? "Loading...." : "Login"} />
           <p className="text-center pt-2">OR</p>
           <div className="text-xs">
-            <Link to="/forgotPassword">Forgot Password</Link>
             <div className="flex my-2">
               <p className="mr-2">Dont Have an account:</p>
               <Link to="/signup">SIGN UP PAGE</Link>
