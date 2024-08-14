@@ -9,6 +9,7 @@ import SignUp from "./pages/Sign.jsx";
 import QuestionPage from "./pages/QuestionPage.jsx";
 
 import "./App.css";
+import ErrorPage from "./pages/NotFound.jsx";
 
 Axios.defaults.withCredentials = true;
 
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/questions/:id" component={QuestionPage} />
+          <Route path="/error" component={ErrorPage} />
         </Switch>
       </BrowserRouter>
       {/* </UserContext.Provider> */}
