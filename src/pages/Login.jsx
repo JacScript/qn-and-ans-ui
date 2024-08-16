@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
-import { useHistory , Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import Button from "../components/ButtonComponent";
-import {LoginUser} from "../Store/UserSlice.js";
 import Header from "../components/Header";
-import { useDispatch, useSelector } from "react-redux";
+// import Axios from "axios";
+// import { useHistory , Link } from "react-router-dom";
+// import {LoginUser} from "../Store/UserSlice.js";
+// import { useDispatch, useSelector } from "react-redux";
 
 import "../App.css";
 
 
 const Login = () => { 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const navigate = useNavigate();
 
   // State for form fields
@@ -18,32 +19,37 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   // Access loading and error state from Redux
-  const { loading, error } = useSelector((state) => state.user);
+  // const { loading, error } = useSelector((state) => state.user);
 
-  const history = useHistory();
+  // const history = useHistory();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    const userCredentials = { email, password };
-    // Dispatch LoginUser action with user credentials
-    dispatch(LoginUser(userCredentials)).then((result) => {
-      if (result.payload) {
-        setEmail("");
-        setPassword("");
-        history.push("/");
-      }
-    });
-  };
+  //   const userCredentials = { email, password };
+  //   // Dispatch LoginUser action with user credentials
+  //   dispatch(LoginUser(userCredentials)).then((result) => {
+  //     if (result.payload) {
+  //       setEmail("");
+  //       setPassword("");
+  //       history.push("/");
+  //     }
+  //   });
+  // };
    
+  const submitHandler = () => {
+    e.preventDefault();
+    console.log("submit");
+  }
 
   return (
     <div className="bg-[#393939] w-screen h-screen">
       <Header />
 
       <div className="sign-up-container">
-        <form className="sign-up-form" onSubmit={handleSubmit}>
-      {error && <div className="text-white bg-[rgba(255,0,0,0.1)] p-2 text-xs border-2 rounded-[5px] border-red-600 text-center">{error}</div>}
+        <form className="sign-up-form" onSubmit={submitHandler}>
+
+      {/* {error && <div className="text-white bg-[rgba(255,0,0,0.1)] p-2 text-xs border-2 rounded-[5px] border-red-600 text-center">{error}</div>} */}
 
           <h1 className="font-bold text-center text-2xl mb-4">Login</h1>
           <label htmlFor="email">Email:</label>
@@ -65,7 +71,8 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button type="submit" title={loading ? "Loading...." : "Login"} />
+          <Button type="submit" title={"Login"} />
+          {/* <Button type="submit" title={loading ? "Loading...." : "Login"} /> */}
           <p className="text-center pt-2">OR</p>
           <div className="text-xs">
             <div className="flex my-2">
