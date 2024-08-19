@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {  Link } from "react-router-dom";
+import { useHistory , Link } from "react-router-dom";
 import Button from "../components/ButtonComponent";
 import Header from "../components/Header";
+import { useDispatch, useSelector } from "react-redux";
+import { useLoginMutation } from "../slices/userApiSlice";
+import { setCredentials } from "../slices/authSlice";
+import { toast } from "react-toastify";
 // import Axios from "axios";
-// import { useHistory , Link } from "react-router-dom";
+// import {  Link } from "react-router-dom";
 // import {LoginUser} from "../Store/UserSlice.js";
-// import { useDispatch, useSelector } from "react-redux";
 
 import "../App.css";
 
@@ -17,6 +20,21 @@ const Login = () => {
   // State for form fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  const [ login , {isLoading}] = useLoginMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if(userInfo) {
+      history.push("/")
+    }
+  }, [history, userInfo]);
+
 
   // Access loading and error state from Redux
   // const { loading, error } = useSelector((state) => state.user);
@@ -37,9 +55,18 @@ const Login = () => {
   //   });
   // };
    
-  const submitHandler = () => {
+  const submitHandler = async(e) => {
     e.preventDefault();
-    console.log("submit");
+
+    try {
+      const response = await login({email, password}).unwrap();
+      dispatch(setCredentials({...response}));
+      console.log(response)
+      history.push("/")
+    } catch (err) {
+      toast.error(err?.data?.message || err.error)
+    }
+
   }
 
   return (

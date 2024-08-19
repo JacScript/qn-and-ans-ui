@@ -7,6 +7,8 @@ import Login from "./pages/Login.jsx";
 import SignUp from "./pages/Sign.jsx";
 // import UserContext from "./UserContext.jsx";
 import QuestionPage from "./pages/QuestionPage.jsx";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import "./App.css";
 import ErrorPage from "./pages/NotFound.jsx";
@@ -32,8 +34,9 @@ const App = () => {
   // }, [])
 
   return (
-    <div className="">
+    <div className="w-screen">
       {/* <UserContext.Provider value={user}> */}
+        <ToastContainer className="text-sm"/>
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
