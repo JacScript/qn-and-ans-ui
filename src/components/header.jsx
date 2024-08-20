@@ -2,26 +2,31 @@ import React, {  useState } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../UserContext";
 import Button from "./ButtonComponent";
+import { useSelector, useDispatch } from "react-redux";
 
-function getUser() {
-  let user = localStorage.getItem("user");
-  if (user) {
-    user = JSON.parse(user);
-  } else {
-    user = null;
-  }
-  return user;
-}
+// function getUser() {
+//   let user = localStorage.getItem("user");
+//   if (user) {
+//     user = JSON.parse(user);
+//   } else {
+//     user = null;
+//   }
+//   return user;
+// }
 
 const Header = () => {
   // const { user } = useContext(UserContext);
-  const [user, setUser] = useState(getUser());
+  // const [user, setUser] = useState(getUser());
 
-  const handleLogout = () => {
-    localStorage.clear('user');
-    // cookies.remove('Token');
-    setUser(null);
-  }
+  // const handleLogout = () => {
+  //   localStorage.clear('user');
+  //   // cookies.remove('Token');
+  //   setUser(null);
+  // }
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+
 
   return (
     <div className="text-white flex w-full shadow-sm shadow-[rgba(0,0,0,.2)]">
@@ -49,16 +54,18 @@ const Header = () => {
       </div>
 
       <div className=" flex-[1] h-full">
-        {user ? (
+        {userInfo ? (
           <div className="text-center pb-[px] flex justify-between gap-4 items-center px-4 w-full h-full mt-[15px]">
             {/* <Link to="/profile" className="flex-2">             */}
            <span className="flex-2">
-           {user.username}
+          <Link to="/profile">
+          {userInfo.username}
+          </Link> 
             </span> 
             {/* </Link> */}
-            <span>
+            {/* <span>
             <button className="bg-[#378ad3] text-[#fff] rounded-[5px] py-[8px]  flex-1 px-2 text-xs items-center" onClick={handleLogout}>Log Out</button>
-            </span>
+            </span> */}
           </div>
         ) : (
           <div className="text-center pb-[px] flex justify-center gap-4 w-full h-full mt-[25px]">

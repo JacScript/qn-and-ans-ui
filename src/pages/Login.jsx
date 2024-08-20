@@ -61,7 +61,7 @@ const Login = () => {
     try {
       const response = await login({email, password}).unwrap();
       dispatch(setCredentials({...response}));
-      console.log(response)
+      // console.log(response)
       history.push("/")
     } catch (err) {
       toast.error(err?.data?.message || err.error)
@@ -74,7 +74,7 @@ const Login = () => {
       <Header />
 
       <div className="sign-up-container">
-        <form className="sign-up-form" onSubmit={submitHandler}>
+        <form className="sign-up-form" action="#">
 
       {/* {error && <div className="text-white bg-[rgba(255,0,0,0.1)] p-2 text-xs border-2 rounded-[5px] border-red-600 text-center">{error}</div>} */}
 
@@ -98,8 +98,8 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button type="submit" title={"Login"} />
-          {/* <Button type="submit" title={loading ? "Loading...." : "Login"} /> */}
+          {/* <Button type="submit" title={"Login"}  onClick={submitHandler} /> */}
+          <Button type="submit" onClick={submitHandler} title={isLoading ? "Loading...." : "Login"} />
           <p className="text-center pt-2">OR</p>
           <div className="text-xs">
             <div className="flex my-2">

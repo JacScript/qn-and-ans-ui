@@ -1,37 +1,22 @@
 import React, { createContext, useEffect, useState } from "react";
-import Axios from "axios";
 import Home from "./pages/Home.jsx";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Ask from "./pages/Ask.jsx";
 import Login from "./pages/Login.jsx";
 import SignUp from "./pages/Sign.jsx";
-// import UserContext from "./UserContext.jsx";
 import QuestionPage from "./pages/QuestionPage.jsx";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import UserContext from "./UserContext.jsx";
+// import Axios from "axios";
 
 import "./App.css";
 import ErrorPage from "./pages/NotFound.jsx";
+import Profile from "./pages/Profile.jsx";
 
-Axios.defaults.withCredentials = true;
+// Axios.defaults.withCredentials = true;
 
 const App = () => {
-
-
-  // useEffect( () => {
-  //   Axios.get("http://localhost:3000/auth/profile", {
-  //     username,
-  //   }).then(() => {
-  //     (response) => {
-  //       console.log(response);
-  //       setCheckingAuth(false);
-  //     }
-  //   }).catch(
-  //     (response) => {
-  //       setCheckingAuth(false)
-  //     }
-  //   )
-  // }, [])
 
   return (
     <div className="w-screen">
@@ -45,6 +30,7 @@ const App = () => {
           <Route path="/signup" component={SignUp} />
           <Route path="/questions/:id" component={QuestionPage} />
           <Route path="/error" component={ErrorPage} />
+          <Route path="/profile" component={Profile} />
         </Switch>
       </BrowserRouter>
       {/* </UserContext.Provider> */}

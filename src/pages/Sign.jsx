@@ -1,20 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/ButtonComponent";
-// import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useRegisterMutation } from "../slices/userApiSlice";
+import { setCredentials } from "../slices/authSlice";
+
 // import { SignUpUser } from "../Store/UserSlice.js";
-// import { useDispatch, useSelector } from "react-redux";
 
 import "../App.css";
 
 const SignUp = () => {
-  // const dispatch = useDispatch();
-  // const history = useHistory();
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const [register, { isLoading }] = useRegisterMutation();
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/");
+    }
+  }, [history, userInfo]);
 
   // const { loading, error } = useSelector((state) => state.user);
 
@@ -35,19 +49,30 @@ const SignUp = () => {
   //   });
   // };
 
-  const submitHandler = () => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("submit")
-  }
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+    } else {
+      try {
+        const response = await register({ username, email, password }).unwrap();
+        dispatch(setCredentials({ ...response }));
+        history.push("/");
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
+  };
+
   return (
     <div className="sign-up-container bg-[#393939] w-screen h-screen">
-      <form className="sign-up-form" onSubmit={submitHandler}>
-        
+      <form className="sign-up-form" action="#">
         <h1 className="font-bold text-center text-2xl mb-4">Sign Up</h1>
         {/* {error && 
           <div className="text-white bg-[rgba(255,0,0,0.1)] p-2 text-xs border-2 rounded-[5px] border-red-600 text-center mb-2">
             {error} */}
-          {/* </div>
+        {/* </div>
         } */}
         <label htmlFor="username">UserName:</label>
         <input
@@ -77,7 +102,7 @@ const SignUp = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
 
-<label htmlFor="password">Confirm Password:</label>
+        <label htmlFor="password">Confirm Password:</label>
         <input
           className="py-[8px] bg-[rgba(255,255,255,.1)] mb-[16px] pl-2"
           type="password"
@@ -86,7 +111,11 @@ const SignUp = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <Button type="submit" title={"Sign Up"} />
+        <Button
+          type="submit"
+          title={isLoading ? "Loading...." : "Sign Up"}
+          onClick={submitHandler}
+        />
         {/* <Button type="submit" title={loading ? "Loading...." : "Sign Up"} /> */}
         <p className="text-center py-2">OR</p>
         <div className="flex text-sm">
