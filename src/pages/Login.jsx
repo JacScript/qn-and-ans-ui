@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory , Link } from "react-router-dom";
 import Button from "../components/ButtonComponent";
-import Header from "../components/Header";
+import Header from "../components/Header.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";

@@ -1,7 +1,7 @@
 import axios from "axios";
 import ReactMarkdown from 'react-markdown';
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
+import Header from "../components/Header.jsx";
 
 const QuestionPage = (props) => {
   const [question, setQuestion] = useState(null);

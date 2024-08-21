@@ -1,10 +1,10 @@
 import React from 'react'
-import Header from '../components/Header'
-import Button from '../components/ButtonComponent'
-import { useLogoutMutation } from '../slices/userApiSlice'
-import { logout } from '../slices/authSlice'
+import Header from '../components/Header.jsx';
+import Button from '../components/ButtonComponent.jsx'
+import { useLogoutMutation } from '../slices/userApiSlice.js'
+import { logout } from '../slices/authSlice.js'
 import { useDispatch } from 'react-redux'
-import { useHistory } from "react-router-dom";
+import { useHistory , Redirect} from "react-router-dom";
 
 // import { useHistory } from 'react-router-dom'
 

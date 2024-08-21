@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
-import Home from "./pages/Home.jsx";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
+import Home from "./pages/Home.jsx";
 import Ask from "./pages/Ask.jsx";
 import Login from "./pages/Login.jsx";
 import SignUp from "./pages/Sign.jsx";
@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./App.css";
 import ErrorPage from "./pages/NotFound.jsx";
 import Profile from "./pages/Profile.jsx";
+import PrivateRoute from "./pages/PrivateRoute.jsx";
 
 // Axios.defaults.withCredentials = true;
 
@@ -25,12 +26,15 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/ask" component={Ask} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/questions/:id" component={QuestionPage} />
           <Route path="/error" component={ErrorPage} />
-          <Route path="/profile" component={Profile} />
+          {/* PrivateRoutes */}
+          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/ask" component={Ask} />  
+          {/* <Route path="/ask" component={Ask} />
+          <Route path="/profile" component={Profile} /> */}
         </Switch>
       </BrowserRouter>
       {/* </UserContext.Provider> */}
