@@ -3,14 +3,14 @@ import ReactMarkdown from "react-markdown";
 // import gfm from "remark-gfm";
 import Button from "./ButtonComponent";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
 const AskContainer = () => {
-
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [questionText, setQuestionText] = useState("");
   const [tags, setTags] = useState([]);
+  const [redirect, setRedirect] = useState("");
 
   const sendQuestion = async (e) => {
     e.preventDefault();
@@ -20,14 +20,15 @@ const AskContainer = () => {
       const response = await axios.post("http://localhost:3000/questions", {
         title,
         questionText,
-        tags
+        tags,
       });
 
       if (response.data) {
-        history.push("/");
+        console.log(response.data.question._id);
+        // history.push(`/question/${response.data.question._id}`);
+        setRedirect("/question/" + response.data.question._id);
       }
 
-      console.log("Question posted successfully:", response.data);
       // Handle success, e.g., clear form fields, show success message
     } catch (error) {
       console.error("Error posting question:", error);
@@ -36,18 +37,19 @@ const AskContainer = () => {
   };
 
   const addTags = (e) => {
-    if(e.target.value !== ""){
-       setTags([...tags, e.target.value]);
-       e.target.value = "";
+    if (e.target.value !== "") {
+      setTags([...tags, e.target.value]);
+      e.target.value = "";
     }
-  }
+  };
 
   const removeTag = (indexToRemove) => {
-    setTags(tags.filter((_,index) => index !== indexToRemove))
-  }
+    setTags(tags.filter((_, index) => index !== indexToRemove));
+  };
 
   return (
     <div className="flex flex-col w-11/12 max-h-full mx-auto ">
+      {redirect && <Redirect to={redirect} />}
       <form action="#">
         <div className="w-5/6 mx-auto mt-6 bg-none">
           <input
@@ -76,17 +78,25 @@ const AskContainer = () => {
         </div>
         <div className="flex w-5/6 mx-auto my-2 flex-wrap min-h-[40px] rounded-[5px] py-0 px-[10px]  box-border border-2  border-[#777]">
           <ul className="flex flex-wrap p-0 mt-[8px] mx-0 mb-0">
-
-             {
-              tags.map((tag, index) => 
-                <li key={index} className="w-auto h-[32px] flex items-center justify-center text-[#ffffff] py-0 px-[8px] text-[14px] rounded-[5px] mt-0 mr-[8px] mb-[8px] ml-0 list-none bg-[#0052cc]"><span className="mt-[3px]">{tag}</span><span className="flex items-center mt-0"><i className="fa-solid fa-xmark ml-[4px] mt-[3px] cursor-pointer text-[15px]" onClick={() => removeTag(index)}/></span></li>
-              )
-             }
+            {tags.map((tag, index) => (
+              <li
+                key={index}
+                className="w-auto h-[32px] flex items-center justify-center text-[#ffffff] py-0 px-[8px] text-[14px] rounded-[5px] mt-0 mr-[8px] mb-[8px] ml-0 list-none bg-[#0052cc]"
+              >
+                <span className="mt-[3px]">{tag}</span>
+                <span className="flex items-center mt-0">
+                  <i
+                    className="fa-solid fa-xmark ml-[4px] mt-[3px] cursor-pointer text-[15px]"
+                    onClick={() => removeTag(index)}
+                  />
+                </span>
+              </li>
+            ))}
           </ul>
-          <input 
+          <input
             type="text"
-            placeholder="Press enter to add tags"
-            onKeyUp={e => e.key.trim() === "" ? addTags(e) : null}
+            placeholder="Press Space bar to add tags"
+            onKeyUp={(e) => (e.key.trim() === "" ? addTags(e) : null)}
             className="flex-1 my-[8px] text[14px] bg-transparent text-white outline-none"
           />
         </div>

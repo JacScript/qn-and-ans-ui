@@ -22,7 +22,7 @@ const QuestionRow = ({title,id}) => {
         </div>
 
         <div className="px-[30px] flex flex-col w-4/5">
-          <Link to={`/questions/${id}`} className="text-[#3ca4ff] text-[1.1rem] mb-[2px]">
+          <Link to={`/question/${id}`} className="text-[#3ca4ff] text-[1.1rem] mb-[2px]">
             {title}
           </Link>
           <div className="flex justify-between">

@@ -28,7 +28,7 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
-          <Route path="/questions/:id" component={QuestionPage} />
+          <Route path="/question/:id" component={QuestionPage} />
           <Route path="/error" component={ErrorPage} />
           {/* PrivateRoutes */}
           <PrivateRoute path="/profile" component={Profile} />
