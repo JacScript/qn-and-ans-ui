@@ -2,6 +2,7 @@ import axios from "axios";
 import ReactMarkdown from 'react-markdown';
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header.jsx";
+import { configureStore } from "@reduxjs/toolkit";
 
 const QuestionPage = (props) => {
   const [question, setQuestion] = useState(null);
@@ -15,6 +16,7 @@ const QuestionPage = (props) => {
         ); // Replace with your API endpoint
         // console.log("Question is being fetched");
         const data = response.data.question;
+        console.log(data)
         setQuestion(data);
       } catch (error) {
         console.log(error.message);
@@ -35,9 +37,13 @@ const QuestionPage = (props) => {
             <h1 className=" text-3xl text-white">{question.title}</h1>
           </div>
           <div>
-          <ReactMarkdown>{question.questionText}</ReactMarkdown>
-
+             <ReactMarkdown>{question.questionText}</ReactMarkdown>
             {/* <p>{question.questionText}</p> */}
+          </div>
+          <div>
+            {
+              question.tags.map(( tag )=> {console.log(tag)})
+            }
           </div>
         </div>
       )}
