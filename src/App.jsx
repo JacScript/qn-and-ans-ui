@@ -28,11 +28,12 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
-          <Route path="/question/:id" component={QuestionPage} />
           <Route path="/error" component={ErrorPage} />
           {/* PrivateRoutes */}
           <PrivateRoute path="/profile" component={Profile} />
-          <PrivateRoute path="/ask" component={Ask} />  
+          <PrivateRoute path="/ask" component={Ask} />
+          <PrivateRoute path="/question/:id" component={QuestionPage} />
+          {/* <Route path="/question/:id" component={QuestionPage} /> */}
           {/* <Route path="/ask" component={Ask} />
           <Route path="/profile" component={Profile} /> */}
         </Switch>

@@ -17,14 +17,14 @@ const AskContainer = () => {
     console.log(tags);
 
     try {
-      const response = await axios.post("http://localhost:3000/questions", {
+      const response = await axios.post("http://localhost:3000/question", {
         title,
         questionText,
         tags,
       });
 
       if (response.data) {
-        console.log(response.data.question._id);
+        // console.log(response.data.question._id);
         // history.push(`/question/${response.data.question._id}`);
         setRedirect("/question/" + response.data.question._id);
       }
