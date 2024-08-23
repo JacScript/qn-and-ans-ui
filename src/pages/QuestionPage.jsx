@@ -17,7 +17,7 @@ const QuestionPage = (props) => {
           { withCrendetials: true }
         ); 
         const data = response.data.question;
-        console.log(data)
+        // console.log(data.user.username);
         setQuestion(data);
       } catch (error) {
         console.log(error.message);
@@ -51,7 +51,7 @@ const QuestionPage = (props) => {
                 </span>
               ))}
             </div>
-            <div>{userInfo.username}</div>
+            <div>{question.user.username}</div>
           </div>
         </div>
       )}
