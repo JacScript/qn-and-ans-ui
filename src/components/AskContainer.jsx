@@ -3,36 +3,38 @@ import ReactMarkdown from "react-markdown";
 // import gfm from "remark-gfm";
 import Button from "./ButtonComponent";
 import axios from "axios";
-import { useHistory, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 const AskContainer = () => {
-  const history = useHistory();
   const [title, setTitle] = useState("");
   const [questionText, setQuestionText] = useState("");
   const [tags, setTags] = useState([]);
   const [redirect, setRedirect] = useState("");
+  const { userInfo } = useSelector((state) => state.auth);
 
   const sendQuestion = async (e) => {
     e.preventDefault();
-    console.log(tags);
 
     try {
       const response = await axios.post("http://localhost:3000/question", {
         title,
         questionText,
         tags,
+        user: userInfo.id,
       });
 
+// console.log(userInfo)
+
+
       if (response.data) {
-        // console.log(response.data.question._id);
-        // history.push(`/question/${response.data.question._id}`);
+        console.log(response.data);
         setRedirect("/question/" + response.data.question._id);
       }
 
       // Handle success, e.g., clear form fields, show success message
     } catch (error) {
       console.error("Error posting question:", error);
-      // Handle error, e.g., display error message to user
     }
   };
 

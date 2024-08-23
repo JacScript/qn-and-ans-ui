@@ -1,10 +1,9 @@
 import axios from "axios";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header.jsx";
 import { useSelector, useDispatch } from "react-redux";
-
-import { configureStore } from "@reduxjs/toolkit";
+// import { configureStore } from "@reduxjs/toolkit";
 
 const QuestionPage = (props) => {
   const [question, setQuestion] = useState(null);
@@ -14,9 +13,9 @@ const QuestionPage = (props) => {
       try {
         const { id } = props.match.params;
         const response = await axios.get(
-          `http://localhost:3000/question/${id}`,{withCrendetials: true}
-        ); // Replace with your API endpoint
-        // console.log("Question is being fetched");
+          `http://localhost:3000/question/${id}`,
+          { withCrendetials: true }
+        ); 
         const data = response.data.question;
         console.log(data)
         setQuestion(data);
@@ -24,13 +23,11 @@ const QuestionPage = (props) => {
         console.log(error.message);
       }
     };
-
     fetchQuestion();
   }, []);
 
-
   const { userInfo } = useSelector((state) => state.auth);
-  
+
   return (
     <div className="text-white bg-[#393939] w-screen min-h-screen">
       <Header />
@@ -43,25 +40,18 @@ const QuestionPage = (props) => {
             <ReactMarkdown>{question.questionText}</ReactMarkdown>
             {/* <p>{question.questionText}</p> */}
           </div>
-
           <div className="flex justify-between">
             <div>
-            {question.tags?.map((tag) => (
-              <span
-                key={tag} // Add a unique key for each tag
-                className="p-[7px] text-[.9rem] rounded-[4px] text-[#9cc3db] bg-[#3e4a52] mr-[5px] inline-block"
-              >
-                {tag}
-              </span>
-            ))}
-
+              {question.tags?.map((tag) => (
+                <span
+                  key={tag} // Add a unique key for each tag
+                  className="p-[7px] text-[.9rem] rounded-[4px] text-[#9cc3db] bg-[#3e4a52] mr-[5px] inline-block"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-
-            <div>
-              {userInfo.username}
-            </div>
-
-            
+            <div>{userInfo.username}</div>
           </div>
         </div>
       )}
