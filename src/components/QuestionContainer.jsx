@@ -20,6 +20,7 @@ const QuestionContainer = (props) => {
           withCrendetials: true,
         });
         const data = response.data;
+        // console.log(data)
         setQuestions(data);
       } catch (error) {
         console.log(error.message);
