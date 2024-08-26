@@ -9,11 +9,13 @@ import VotingButton from "../components/VotingButton.jsx";
 
 const QuestionPage = (props) => {
   const [question, setQuestion] = useState(null);
+  const { id } = props.match.params;
+
 
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
-        const { id } = props.match.params;
+        // const { id } = props.match.params;
         const response = await axios.get(
           `http://localhost:3000/question/${id}`,
           { withCrendetials: true }
@@ -28,7 +30,7 @@ const QuestionPage = (props) => {
     fetchQuestion();
   }, []);
 
-  const { userInfo } = useSelector((state) => state.auth);
+  // const { userInfo } = useSelector((state) => state.auth);-
 
   return (
     <div className="text-white bg-[#393939] w-screen min-h-screen">
@@ -41,7 +43,10 @@ const QuestionPage = (props) => {
 
           <div className="flex gap-[60px]">
             <div className="">
-              <VotingButton/>
+              <VotingButton
+                 questionId ={ id}
+
+              />
             </div>
 
             <div className="flex-1">
