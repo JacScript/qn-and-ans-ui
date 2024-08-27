@@ -11,7 +11,6 @@ const QuestionPage = (props) => {
   const [question, setQuestion] = useState(null);
   const { id } = props.match.params;
 
-
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
@@ -43,10 +42,7 @@ const QuestionPage = (props) => {
 
           <div className="flex gap-[60px]">
             <div className="">
-              <VotingButton
-                 questionId ={ id}
-
-              />
+              <VotingButton questionId={id} initialvotes={question.votes} />
             </div>
 
             <div className="flex-1">
