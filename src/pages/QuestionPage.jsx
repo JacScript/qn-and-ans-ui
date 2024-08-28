@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min.js";
+import { Link } from "react-router-dom";
 import VotingButton from "../components/VotingButton.jsx";
 // import { configureStore } from "@reduxjs/toolkit";
 
@@ -54,12 +54,12 @@ const QuestionPage = (props) => {
               <div className="flex justify-between">
                 <div>
                   {question.tags?.map((tag) => (
-                    <span
+                    <Link
                       key={tag} // Add a unique key for each tag
-                      className="p-[7px] text-[.9rem] rounded-[4px] text-[#9cc3db] bg-[#3e4a52] mr-[5px] inline-block"
+                      className="p-[7px] text-[.9rem] rounded-[4px] text-[#9cc3db] bg-[#3e4a52] mr-[5px] inline-block no-underline hover:underline  hover:bg-[#5e6a72] hover:text-[#bce3fb] transition duration-700 ease-in-out"
                     >
                       {tag}
-                    </span>
+                    </Link>
                   ))}
                 </div>
 
@@ -72,6 +72,7 @@ const QuestionPage = (props) => {
               </div>
             </div>
           </div>
+          <p>comments</p>
         </div>
       )}
     </div>
