@@ -9,6 +9,7 @@ import VotingButton from "../components/VotingButton.jsx";
 
 const QuestionPage = (props) => {
   const [question, setQuestion] = useState(null);
+  const [comments, setComments] = useState("");
   const { id } = props.match.params;
 
   useEffect(() => {
@@ -27,6 +28,24 @@ const QuestionPage = (props) => {
       }
     };
     fetchQuestion();
+  }, []);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/comment/${id}`,
+          { withCrendetials: true }
+        );
+
+        const data = response.data.comments;
+         console.log(data);
+        setComments(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchComments();
   }, []);
 
   // const { userInfo } = useSelector((state) => state.auth);-
@@ -55,6 +74,7 @@ const QuestionPage = (props) => {
                 <div>
                   {question.tags?.map((tag) => (
                     <Link
+                      to="#"
                       key={tag} // Add a unique key for each tag
                       className="p-[7px] text-[.9rem] rounded-[4px] text-[#9cc3db] bg-[#3e4a52] mr-[5px] inline-block no-underline hover:underline  hover:bg-[#5e6a72] hover:text-[#bce3fb] transition duration-700 ease-in-out"
                     >
@@ -72,7 +92,16 @@ const QuestionPage = (props) => {
               </div>
             </div>
           </div>
-          <p>comments</p>
+          {comments && comments.length > 0 && (
+            <div className="border-y border-[rgba(255,255,255,.1)] mt-4 ">
+              {comments.map((comment) => (
+                <div className="text-white flex justify-between p-1 text-sm" key={comment._id}>
+                  <div >{comment.memo}</div>
+                  <div><span>x time ago</span><Link>{comment.user.email}</Link></div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
