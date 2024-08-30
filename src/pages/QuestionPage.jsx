@@ -5,11 +5,14 @@ import Header from "../components/Header.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import VotingButton from "../components/VotingButton.jsx";
+import BlueLinkButon from "../components/AddComment.jsx";
 // import { configureStore } from "@reduxjs/toolkit";
 
 const QuestionPage = (props) => {
   const [question, setQuestion] = useState(null);
   const [comments, setComments] = useState("");
+  const [showCommentForm, setShowCommentForm] = useState(false);
+
   const { id } = props.match.params;
 
   useEffect(() => {
@@ -34,12 +37,11 @@ const QuestionPage = (props) => {
     const fetchComments = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/comment/${id}`,
+          `http://localhost:3000/question/${id}/comments`,
           { withCrendetials: true }
         );
 
         const data = response.data.comments;
-         console.log(data);
         setComments(data);
       } catch (error) {
         console.log(error.message);
@@ -47,8 +49,6 @@ const QuestionPage = (props) => {
     };
     fetchComments();
   }, []);
-
-  // const { userInfo } = useSelector((state) => state.auth);-
 
   return (
     <div className="text-white bg-[#393939] w-screen min-h-screen">
@@ -60,11 +60,11 @@ const QuestionPage = (props) => {
           </div>
 
           <div className="flex gap-[60px]">
-            <div className="">
-              <VotingButton questionId={id} initialvotes={question.votes} />
-            </div>
+            {/* <div className=""> */}
+            <VotingButton questionId={id} initialvotes={question.votes} />
+            {/* </div> */}
 
-            <div className="flex-1">
+            <div className="flex-1 ">
               <div className="">
                 <ReactMarkdown>{question.questionText}</ReactMarkdown>
                 {/* <p>{question.questionText}</p> */}
@@ -84,7 +84,7 @@ const QuestionPage = (props) => {
                 </div>
 
                 <div className="flex">
-                  <span className="mr-4 italic">x time ago</span>
+                  <span className="mr-4 italic  text-[#888]">x time ago</span>
                   <Link to={"/users/" + props.id} className="text-[#3ca4ff]">
                     {question.user.email}
                   </Link>
@@ -93,15 +93,27 @@ const QuestionPage = (props) => {
             </div>
           </div>
           {comments && comments.length > 0 && (
-            <div className="border-y border-[rgba(255,255,255,.1)] mt-4 ">
+            <div className="border-y border-[rgba(255,255,255,.1)] mt-4 ml-24">
               {comments.map((comment) => (
-                <div className="text-white flex justify-between p-1 text-sm" key={comment._id}>
-                  <div >{comment.memo}</div>
-                  <div><span>x time ago</span><Link>{comment.user.email}</Link></div>
+                <div className="text-white flex  p-1 text-sm" key={comment._id}>
+                  <div>{comment.memo}</div>
+                  <div className="ml-2">
+                    {" "}
+                    &nbsp;--&nbsp;
+                    <Link to={"/user/" + props.id} className="text-[#3ca4ff]">
+                      {" "}
+                      {comment.user?.email}
+                    </Link>
+                    <span className="italic ml-2 text-[#888]">x time ago</span>
+                  </div>
                 </div>
               ))}
             </div>
           )}
+          {showCommentForm && (<textarea></textarea>)}
+          {!showCommentForm && (<BlueLinkButon 
+           className="flex justify-start text-[#3ca4ff] cursor-pointer border-0 hover:text-[#1c84df] pl-24"
+          onClick={() => setShowCommentForm(true)}>Add Comment </BlueLinkButon>)}
         </div>
       )}
     </div>
