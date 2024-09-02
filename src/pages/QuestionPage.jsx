@@ -15,6 +15,7 @@ const QuestionPage = (props) => {
   const [showCommentForm, setShowCommentForm] = useState(false);
 
   const { id } = props.match.params;
+  const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const fetchQuestion = async () => {
@@ -111,7 +112,7 @@ const QuestionPage = (props) => {
               ))}
             </div>
           )}
-          {showCommentForm && (<CommentForm/>)}
+          {showCommentForm && (<CommentForm questionId={id} userId ={userInfo.id}  />)}
           {!showCommentForm && (<BlueLinkButon 
            className="flex justify-start text-[#3ca4ff] cursor-pointer border-0 hover:text-[#1c84df] pl-24"
           onClick={() => setShowCommentForm(true)}>Add Comment </BlueLinkButon>)}
