@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import VotingButton from "../components/VotingButton.jsx";
 import BlueLinkButon from "../components/AddComment.jsx";
+import CommentForm from "../components/CommentForm.jsx";
 // import { configureStore } from "@reduxjs/toolkit";
 
 const QuestionPage = (props) => {
@@ -110,7 +111,7 @@ const QuestionPage = (props) => {
               ))}
             </div>
           )}
-          {showCommentForm && (<textarea></textarea>)}
+          {showCommentForm && (<CommentForm/>)}
           {!showCommentForm && (<BlueLinkButon 
            className="flex justify-start text-[#3ca4ff] cursor-pointer border-0 hover:text-[#1c84df] pl-24"
           onClick={() => setShowCommentForm(true)}>Add Comment </BlueLinkButon>)}
