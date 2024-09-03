@@ -112,10 +112,23 @@ const QuestionPage = (props) => {
               ))}
             </div>
           )}
-          {showCommentForm && (<CommentForm questionId={id} userId ={userInfo.id}  />)}
-          {!showCommentForm && (<BlueLinkButon 
-           className="flex justify-start text-[#3ca4ff] cursor-pointer border-0 hover:text-[#1c84df] pl-24"
-          onClick={() => setShowCommentForm(true)}>Add Comment </BlueLinkButon>)}
+          {showCommentForm && (
+            <CommentForm
+              questionId={id}
+              userId={userInfo.id}
+              setComments={setComments} // Pass function to update comments stat
+              setShowCommentForm={setShowCommentForm}
+              comments={comments}
+            />
+          )}
+          {!showCommentForm && (
+            <BlueLinkButon
+              className="flex justify-start text-[#3ca4ff] cursor-pointer border-0 hover:text-[#1c84df] pl-24"
+              onClick={() => setShowCommentForm(true)}
+            >
+              Add Comment{" "}
+            </BlueLinkButon>
+          )}
         </div>
       )}
     </div>
