@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 const VotingButton = ({ questionId, initialvotes }) => {
-  const [userVote, setUserVote] = useState("");
+  const [userVote, setUserVote] = useState(null);
   const [votes, setVotes] = useState(initialvotes);
 
   useEffect(() => {
@@ -15,11 +15,18 @@ const VotingButton = ({ questionId, initialvotes }) => {
 
   const handleVote = async (voteType) => {
     try {
+      let newVoteType = voteType;
+      
+      if (voteType === userVote) {
+        // If the user clicks the same vote, it means they want to remove their vote
+        newVoteType = null;
+      }
+
       const response = await axios.put(
         "http://localhost:3000/question/vote",
         {
           qID: questionId,
-          vote: voteType,
+          vote: newVoteType,
         },
         {
           headers: {
@@ -28,16 +35,17 @@ const VotingButton = ({ questionId, initialvotes }) => {
         }
       );
 
-      // if (!response.ok) {
-      //   throw new Error(`Error voting for answer: ${response.statusText}`);
-      // }
-      const data = await response.data.question;
+      const data = response.data.question;
 
-      setUserVote(voteType); // Update state with the voted type ("up" or "down")
+      setUserVote(newVoteType); // Update state with the new vote type or null for unvoting
       setVotes(data.votes);
 
-      // Store the vote in local storage (optional)
-      localStorage.setItem(`vote_${questionId}`, voteType);
+      // Update the local storage with the new vote or remove it if null
+      if (newVoteType) {
+        localStorage.setItem(`vote_${questionId}`, newVoteType);
+      } else {
+        localStorage.removeItem(`vote_${questionId}`);
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -48,7 +56,6 @@ const VotingButton = ({ questionId, initialvotes }) => {
       <button
         className={`border-0 bg-none text-[1.6em] ${userVote === 'up' ? 'text-[#d64a17]' : 'text-[#888]'} cursor-pointer w-[50px] text-center`}
         onClick={() => handleVote("up")}
-        disabled={userVote}
       >
         &#9650;
       </button>
@@ -56,7 +63,6 @@ const VotingButton = ({ questionId, initialvotes }) => {
       <button
         className={`border-0 bg-none text-[1.6em] ${userVote === "down" ? "text-[#d64a17]" : 'text-[#888]'} cursor-pointer w-[50px] text-center`}
         onClick={() => handleVote("down")}
-        disabled={userVote}
       >
         &#9660;
       </button>

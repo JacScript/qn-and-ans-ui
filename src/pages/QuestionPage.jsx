@@ -5,6 +5,7 @@ import Header from "../components/Header.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import VotingButton from "../components/VotingButton.jsx";
+import VotingCommentButton from "../components/VotingCommentButton.jsx";
 import BlueLinkButon from "../components/AddComment.jsx";
 import CommentForm from "../components/CommentForm.jsx";
 // import { configureStore } from "@reduxjs/toolkit";
@@ -95,11 +96,13 @@ const QuestionPage = (props) => {
             </div>
           </div>
           {comments && comments.length > 0 && (
-            <div className="border-y border-[rgba(255,255,255,.1)] mt-4 ml-24">
+            <div className="border-y  border-[rgba(255,255,255,.1)] ml-24">
               {comments.map((comment) => (
-                <div className="text-white flex  p-1 text-sm" key={comment._id}>
-                  <div>{comment.memo}</div>
-                  <div className="ml-2">
+                <div className="text-white flex h-6 mb-1 text-sm" key={comment._id}>
+             <div className="h-full"> <VotingCommentButton commentID={comment._id} initialvotes={comment.votes} /></div>
+              <div className="flex justify-center items-center py-1 h-full">
+              <p>{comment.memo}</p>
+                  <p className="ml-1">
                     {" "}
                     &nbsp;--&nbsp;
                     <Link to={"/user/" + props.id} className="text-[#3ca4ff]">
@@ -107,7 +110,9 @@ const QuestionPage = (props) => {
                       {comment.user?.email}
                     </Link>
                     <span className="italic ml-2 text-[#888]">x time ago</span>
-                  </div>
+                  </p>
+
+              </div>
                 </div>
               ))}
             </div>
