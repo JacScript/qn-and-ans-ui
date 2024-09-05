@@ -8,6 +8,7 @@ import VotingButton from "../components/VotingButton.jsx";
 import VotingCommentButton from "../components/VotingCommentButton.jsx";
 import BlueLinkButon from "../components/AddComment.jsx";
 import CommentForm from "../components/CommentForm.jsx";
+import AnswerComponent from "../components/AnswerComponent.jsx";
 // import { configureStore } from "@reduxjs/toolkit";
 
 const QuestionPage = (props) => {
@@ -134,6 +135,8 @@ const QuestionPage = (props) => {
               Add Comment{" "}
             </BlueLinkButon>
           )}
+          <hr className="my-5 mx-0 border-[rgba(255,255,255,.1)]"/>
+          <AnswerComponent/>
         </div>
       )}
     </div>
