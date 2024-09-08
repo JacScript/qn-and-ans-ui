@@ -55,7 +55,7 @@ const QuestionPage = (props) => {
   }, []);
 
   return (
-    <div className="text-white bg-[#393939] w-screen min-h-screen">
+    <div className="text-white bg-[#393939] w-screen min-h-screen pb-20">
       <Header />
       {question && (
         <div className="flex flex-col w-11/12 h-dvh mx-auto">
