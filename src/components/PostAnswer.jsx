@@ -4,7 +4,7 @@ import Markdown from "react-markdown";
 import remarkGfm from 'remark-gfm'
 import axios from "axios";
 
-const AnswerComponent = () => {
+const AnswerComponent = ({questionId, userId,setAnswers, answers}) => {
   const [answer, setAnswer] = useState("");
 
  const postAnswer = async (e) => {
@@ -13,12 +13,16 @@ const AnswerComponent = () => {
    try {
     
     const response = await axios.post("http://localhost:3000/questions/answer", {
-      qID,
-      text
+      qID: questionId,
+      text: answer,
+      user: userId
     })
 
     if(response.data){
-      console.
+      const data = response.data.answer
+      // console.log(response.data.answer)
+      setAnswers([...answers,data ])
+      setAnswer("");
     }
 
    } catch (error) {

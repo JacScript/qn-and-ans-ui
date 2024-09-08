@@ -8,57 +8,110 @@ import VotingButton from "../components/VotingButton.jsx";
 import VotingCommentButton from "../components/VotingCommentButton.jsx";
 import BlueLinkButon from "../components/AddComment.jsx";
 import CommentForm from "../components/CommentForm.jsx";
-import AnswerComponent from "../components/AnswerComponent.jsx";
+import AnswerComponent from "../components/PostAnswer.jsx";
+import VotingAnswerButton from "../components/VotingAnswerButton.jsx";
 // import { configureStore } from "@reduxjs/toolkit";
 
 const QuestionPage = (props) => {
   const [question, setQuestion] = useState(null);
   const [comments, setComments] = useState("");
+  const [answers, setAnswers] = useState("");
   const [showCommentForm, setShowCommentForm] = useState(false);
 
   const { id } = props.match.params;
   const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const fetchQuestion = async () => {
+    const fetchData = async () => {
+      if (!id) return; // Prevent unnecessary fetches if id is not available
+
       try {
-        // const { id } = props.match.params;
-        const response = await axios.get(
+        const questionResponse = await axios.get(
           `http://localhost:3000/question/${id}`,
-          { withCrendetials: true }
+          { withCredentials: true }
         );
-        const data = response.data.question;
-        // console.log(data.user.username);
-        setQuestion(data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    fetchQuestion();
-  }, []);
-
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await axios.get(
+        const commentsResponse = await axios.get(
           `http://localhost:3000/question/${id}/comments`,
-          { withCrendetials: true }
+          { withCredentials: true }
+        );
+        const answersResponse = await axios.get(
+          `http://localhost:3000/questions/${id}/answers`, // Use questions here (plural)
+          { withCredentials: true }
         );
 
-        const data = response.data.comments;
-        setComments(data);
+        const questionData = questionResponse.data.question;
+        const commentsData = commentsResponse.data.comments;
+        const answersData = answersResponse.data.answer;
+
+        setQuestion(questionData);
+        setComments(commentsData);
+        setAnswers(answersData);
       } catch (error) {
         console.log(error.message);
       }
     };
-    fetchComments();
-  }, []);
+
+    fetchData();
+  }, [id]);
+
+  // useEffect(() => {
+  //   const fetchQuestion = async () => {
+  //     try {
+  //       // const { id } = props.match.params;
+  //       const response = await axios.get(
+  //         `http://localhost:3000/question/${id}`,
+  //         { withCrendetials: true }
+  //       );
+  //       const data = response.data.question;
+  //       // console.log(data.user.username);
+  //       setQuestion(data);
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
+  //   fetchQuestion();
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchComments = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:3000/question/${id}/comments`,
+  //         { withCrendetials: true }
+  //       );
+
+  //       const data = response.data.comments;
+  //       setComments(data);
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
+  //   fetchComments();
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchAnswers = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:3000/questions/${id}/answers`,
+  //         { withCrendetials: true }
+  //       );
+
+  //       const data = response.data.answers;
+  //       // console.log(data)
+  //       setAnswer(data);
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
+  //   fetchAnswers();
+  // }, []);
 
   return (
-    <div className="text-white bg-[#393939] w-screen min-h-screen pb-20">
+    <div className="text-white bg-[#393939] w-screen h-full pb-20">
       <Header />
       {question && (
-        <div className="flex flex-col w-11/12 h-dvh mx-auto">
+        <div className="flex flex-col w-11/12 h-full mx-auto">
           <div className="my-8 border-b-[1px] pb-[10px] border-[rgba(255,255,255,.1)]">
             <h1 className=" text-3xl text-white">{question.title}</h1>
           </div>
@@ -99,21 +152,31 @@ const QuestionPage = (props) => {
           {comments && comments.length > 0 && (
             <div className="border-y  border-[rgba(255,255,255,.1)] ml-24">
               {comments.map((comment) => (
-                <div className="text-white flex h-6 mb-1 text-sm" key={comment._id}>
-             <div className="h-full"> <VotingCommentButton commentID={comment._id} initialvotes={comment.votes} /></div>
-              <div className="flex justify-center items-center py-1 h-full">
-              <p>{comment.memo}</p>
-                  <p className="ml-1">
+                <div
+                  className="text-white flex h-6 mb-1 text-sm"
+                  key={comment._id}
+                >
+                  <div className="h-full">
                     {" "}
-                    &nbsp;--&nbsp;
-                    <Link to={"/user/" + props.id} className="text-[#3ca4ff]">
+                    <VotingCommentButton
+                      commentID={comment._id}
+                      initialvotes={comment.votes}
+                    />
+                  </div>
+                  <div className="flex justify-center items-center py-1 h-full">
+                    <p>{comment.memo}</p>
+                    <p className="ml-1">
                       {" "}
-                      {comment.user?.email}
-                    </Link>
-                    <span className="italic ml-2 text-[#888]">x time ago</span>
-                  </p>
-
-              </div>
+                      &nbsp;--&nbsp;
+                      <Link to={"/user/" + props.id} className="text-[#3ca4ff]">
+                        {" "}
+                        {comment.user?.email}
+                      </Link>
+                      <span className="italic ml-2 text-[#888]">
+                        x time ago
+                      </span>
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -135,8 +198,36 @@ const QuestionPage = (props) => {
               Add Comment{" "}
             </BlueLinkButon>
           )}
-          <hr className="my-5 mx-0 border-[rgba(255,255,255,.1)]"/>
-          <AnswerComponent/>
+          <div className="mt-4">
+            {answers &&
+              answers.length > 0 &&
+              answers.map((answer) => (
+                <div
+                  className="border-t flex border-[rgba(255,255,255,.1)] w-full p-2 mx-auto"
+                  key={answer.id || answer._id}
+                >
+                  <div>
+                    {" "}
+                    <VotingAnswerButton />{" "}
+                  </div>
+                  <div className="flex justify-center items-center">{answer.text}</div>
+                </div>
+              ))}
+          </div>
+          {/* {answers && answers.length > 0 && (
+             answers.map((answer) => (
+              <p>{answer.text}</p>
+            ))
+          ) } */}
+
+          <hr className="my-5 mx-0 border-[rgba(255,255,255,.1)]" />
+
+          <AnswerComponent
+            userId={userInfo.id}
+            questionId={id}
+            setAnswers={setAnswers}
+            answers={answers}
+          />
         </div>
       )}
     </div>
