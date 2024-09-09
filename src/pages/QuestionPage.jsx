@@ -208,7 +208,7 @@ const QuestionPage = (props) => {
                 >
                   <div>
                     {" "}
-                    <VotingAnswerButton />{" "}
+                    <VotingAnswerButton questionId={id} answerId={answer._id} initialvotes={answer.votes}/>{" "}
                   </div>
                   <div className="flex justify-center items-center">{answer.text}</div>
                 </div>

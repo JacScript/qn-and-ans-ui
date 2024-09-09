@@ -35,10 +35,10 @@ const VotingButton = ({ questionId, initialvotes }) => {
         }
       );
 
-      const data = response.data.question;
+      const data = response.data.question.votes;
 
       setUserVote(newVoteType); // Update state with the new vote type or null for unvoting
-      setVotes(data.votes);
+      setVotes(data);
 
       // Update the local storage with the new vote or remove it if null
       if (newVoteType) {

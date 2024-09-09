@@ -1,17 +1,17 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-const VotingAnswerButton = ({ questionId, initialvotes }) => {
+const VotingAnswerButton = ({ questionId, initialvotes, answerId }) => {
   const [userVote, setUserVote] = useState(null);
   const [votes, setVotes] = useState(initialvotes);
 
   useEffect(() => {
     // Check if the user has already voted (e.g., using local storage or Redux)
-    const storedVote = localStorage.getItem(`vote_${questionId}`);
+    const storedVote = localStorage.getItem(`vote_${answerId}`);
     if (storedVote) {
       setUserVote(storedVote);
     }
-  }, [questionId]);
+  }, [answerId, userVote]);
 
   const handleVote = async (voteType) => {
     try {
@@ -23,8 +23,9 @@ const VotingAnswerButton = ({ questionId, initialvotes }) => {
       }
 
       const response = await axios.put(
-        "http://localhost:3000/question/vote",
+        "http://localhost:3000/questions/answer/vote",
         {
+          aID: answerId,
           qID: questionId,
           vote: newVoteType,
         },
@@ -35,16 +36,18 @@ const VotingAnswerButton = ({ questionId, initialvotes }) => {
         }
       );
 
-      const data = response.data.question;
+      const data = response.data.answer.votes
+      // console.log(data)
+
 
       setUserVote(newVoteType); // Update state with the new vote type or null for unvoting
-      setVotes(data.votes);
+      setVotes(data);
 
       // Update the local storage with the new vote or remove it if null
       if (newVoteType) {
-        localStorage.setItem(`vote_${questionId}`, newVoteType);
+        localStorage.setItem(`vote_${answerId}`, newVoteType);
       } else {
-        localStorage.removeItem(`vote_${questionId}`);
+        localStorage.removeItem(`vote_${answerId}`);
       }
     } catch (error) {
       console.log(error.message);
@@ -54,17 +57,14 @@ const VotingAnswerButton = ({ questionId, initialvotes }) => {
   return (
     <div className="w-5 h-[48px] flex flex-col justify-center mr-4">
       <button
-        // className={`border-0 bg-none text-[1.6em] ${userVote === 'up' ? 'text-[#d64a17]' : 'text-[#888]'} cursor-pointer w-[50px] text-center`}
-        className="border-solid border-b-black border-b-8 border-x-transparent border-x-8 border-t-0"
+           className={`text-center border-solid ${userVote==="up" ? 'border-b-[#d64a17]' : 'border-b-[#888]'}  border-b-8 border-x-transparent cursor-pointer border-x-8 border-t-0`}
         onClick={() => handleVote("up")}
       />
-      <p className="w-5 text-xs text-center text-[#888]">0</p>
+      <p className="w-5  text-xs text-center text-[#888]">{votes}</p>
       <button
-        // className={`border-0 bg-none text-[1.6em] ${userVote === "down" ? "text-[#d64a17]" : 'text-[#888]'} cursor-pointer w-[50px] text-center`}
-        className="border-solid border-t-black border-t-8 border-x-transparent border-x-8 border-b-0"
-        onClick={() => handleVote("down")}
-      
-/>
+        className={`border-solid  text-center ${userVote==="down" ? 'border-t-[#d64a17]' : 'border-t-[#888]'}  border-t-8 border-x-transparent cursor-pointer border-x-8 border-b-0`}
+        onClick={() => handleVote("down")}      
+      />
     </div>
   );
 };
