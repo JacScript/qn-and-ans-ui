@@ -10,10 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
 // import UserContext from "./UserContext.jsx";
 // import Axios from "axios";
 
-import "./App.css";
 import ErrorPage from "./pages/NotFound.jsx";
 import Profile from "./pages/Profile.jsx";
 import PrivateRoute from "./pages/PrivateRoute.jsx";
+import TagPage from "./pages/TagPage.jsx";
+
+import "./App.css";
+
 
 // Axios.defaults.withCredentials = true;
 
@@ -29,6 +32,7 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/error" component={ErrorPage} />
+          <Route path="/tag/:name" component={TagPage}/>
           {/* PrivateRoutes */}
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/ask" component={Ask} />

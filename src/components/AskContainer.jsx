@@ -103,7 +103,10 @@ const AskContainer = () => {
           />
         </div>
         <div className="w-5/6 mx-auto mt-6">
-          <Button title="Post a Question" onClick={sendQuestion} />
+          <Button 
+           type="submit"
+          variant="bg-[#378ad3] text-[#fff] rounded-[5px] py-[8px]  px-[10px] text-xs items-center"
+          title="Post a Question" onClick={sendQuestion} />
         </div>
       </form>
     </div>

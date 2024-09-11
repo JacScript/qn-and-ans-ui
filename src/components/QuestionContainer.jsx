@@ -10,17 +10,15 @@ const QuestionContainer = (props) => {
   const [questions, setQuestions] = useState(null);
   // const dispatch = useDispatch();
   // const {questions,loading, error } = useSelector((state) => state.questions);
-  
 
   useEffect(() => {
-
     const fetchQuestions = async () => {
       try {
         const response = await axios.get("http://localhost:3000/questions", {
           withCrendetials: true,
         });
         const data = response.data;
-        // console.log(data)
+        console.log(data);
         setQuestions(data);
       } catch (error) {
         console.log(error.message);
@@ -29,9 +27,6 @@ const QuestionContainer = (props) => {
 
     fetchQuestions();
   }, []);
-
-  
-
 
   return (
     <div className="bg-[#393939] w-screen h-full">
@@ -46,9 +41,20 @@ const QuestionContainer = (props) => {
       </div>
 
       {/* <div> */}
-        {questions && questions.map((question) =>  
-            <QuestionRow key={question._id} title={question.title} id={question._id}/> 
-          )}
+      {questions &&
+        questions.map((question) => (
+          <QuestionRow
+            key={question._id}
+            title={question.title}
+            id={question._id}
+            tags={question.tags.map((tag) => ({
+              id: tag._id,  // Extract tag ID
+              name: tag.name // Extract tag name
+            }))} 
+            age={question.createdAt}
+            username={question.user.username} // Extract username
+          />
+        ))}
       {/* </div> */}
     </div>
   );

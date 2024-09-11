@@ -43,6 +43,7 @@ const QuestionPage = (props) => {
         const commentsData = commentsResponse.data.comments;
         const answersData = answersResponse.data.answer;
 
+
         setQuestion(questionData);
         setComments(commentsData);
         setAnswers(answersData);
@@ -132,16 +133,23 @@ const QuestionPage = (props) => {
                   {question.tags?.map((tag) => (
                     <Link
                       to="#"
-                      key={tag} // Add a unique key for each tag
+                      key={tag._id} // Add a unique key for each tag
                       className="p-[7px] text-[.9rem] rounded-[4px] text-[#9cc3db] bg-[#3e4a52] mr-[5px] inline-block no-underline hover:underline  hover:bg-[#5e6a72] hover:text-[#bce3fb] transition duration-700 ease-in-out"
                     >
-                      {tag}
+                      {tag.name}
                     </Link>
                   ))}
                 </div>
 
                 <div className="flex">
-                  <span className="mr-4 italic  text-[#888]">x time ago</span>
+                  <span className="mr-4 italic text-[#888]">
+                    {new Date(question.createdAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                  {/* <span className="mr-4 italic  text-[#888]">{question.createdAt}</span> */}
                   <Link to={"/users/" + props.id} className="text-[#3ca4ff]">
                     {question.user.email}
                   </Link>
@@ -170,10 +178,14 @@ const QuestionPage = (props) => {
                       &nbsp;--&nbsp;
                       <Link to={"/user/" + props.id} className="text-[#3ca4ff]">
                         {" "}
-                        {comment.user?.email}
+                        {/* {comment.user?.email} */}
                       </Link>
                       <span className="italic ml-2 text-[#888]">
-                        x time ago
+                      {new Date(comment.createdAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
                       </span>
                     </p>
                   </div>
@@ -208,9 +220,15 @@ const QuestionPage = (props) => {
                 >
                   <div>
                     {" "}
-                    <VotingAnswerButton questionId={id} answerId={answer._id} initialvotes={answer.votes}/>{" "}
+                    <VotingAnswerButton
+                      questionId={id}
+                      answerId={answer._id}
+                      initialvotes={answer.votes}
+                    />{" "}
                   </div>
-                  <div className="flex justify-center items-center">{answer.text}</div>
+                  <div className="flex justify-center items-center">
+                    {answer.text}
+                  </div>
                 </div>
               ))}
           </div>

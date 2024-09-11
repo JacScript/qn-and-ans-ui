@@ -99,7 +99,10 @@ const Login = () => {
           />
 
           {/* <Button type="submit" title={"Login"}  onClick={submitHandler} /> */}
-          <Button type="submit" onClick={submitHandler} title={isLoading ? "Loading...." : "Login"} />
+          <Button
+          variant="bg-[#378ad3] text-[#fff] rounded-[5px] py-[8px]  px-[40px] text-sm items-center"
+           type="submit" 
+           onClick={submitHandler} title={isLoading ? "Loading...." : "Login"} />
           <p className="text-center pt-2">OR</p>
           <div className="text-xs">
             <div className="flex my-2">
