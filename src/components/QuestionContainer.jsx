@@ -48,7 +48,7 @@ const QuestionContainer = (props) => {
             title={question.title}
             id={question._id}
             tags={question.tags.map((tag) => ({
-              id: tag._id,  // Extract tag ID
+              key: tag._id,  // Extract tag ID
               name: tag.name // Extract tag name
             }))} 
             age={question.createdAt}
