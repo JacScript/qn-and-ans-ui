@@ -32,43 +32,68 @@ const TagPage = ({match}) => {
     }
   };
 
+ // Handle unfollow logic
+ const handleUnfollow = async () => {
+  console.log("Clicked")
+  try {
+    const response = await axios.delete(
+      "http://localhost:3000/tag/unfollow",
+      {
+        data: {
+          name: match.params.name,
+          userId: userInfo.id,
+        },
+        withCredentials: true,
+      }
+    );
+    console.log(response.data); // Log the response data to the console
+    setFollowing(false);
+    // console.log(response.data); // Log the response data to the console
+  } catch (error) {
+    console.error("Error unfollowing the tag", error); // Log the error to the console
+  }
+};
+
+
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/questions/tag/"+match.params.name, {
+        const response = await axios.get("http://localhost:3000/tag/"+match.params.name, {
           withCrendetials: true,
         });
         const data = response.data.questions;
-        console.log(data);
+        // console.log(data);
         setQuestions(data);
       } catch (error) {
         console.log(error.message);
       }
     };
 
-    fetchQuestions();
-  }, []);
-
-
-   // Handle unfollow logic
-   const handleUnfollow = async () => {
-    try {
-      const response = await axios.delete(
-        "http://localhost:3000/tag/unfollow",
-        {
-          data: {
+    // Check if the user is already following the tag
+    const checkIfFollowing = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/tags/check-following",
+          {
             name: match.params.name,
             userId: userInfo.id,
           },
-          withCredentials: true,
-        }
-      );
-      setFollowing(false);
-      // console.log(response.data); // Log the response data to the console
-    } catch (error) {
-      console.error("Error unfollowing the tag", error); // Log the error to the console
-    }
-  };
+          { withCredentials: true }
+        );
+        console.log(response.data)
+      //  setFollowing(response.data.isFollowing); // Assuming the response contains `isFollowing`
+      } catch (error) {
+        console.error("Error checking follow status", error);
+      }
+    };
+
+    fetchQuestions();
+    checkIfFollowing(); // Check if the tag is already followed
+  }, [match.params.name, userInfo.id]);
+
+
+  
 
 
     return(

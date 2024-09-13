@@ -32,11 +32,11 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/error" component={ErrorPage} />
-          <Route path="/tag/:name" component={TagPage}/>
           {/* PrivateRoutes */}
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/ask" component={Ask} />
           <PrivateRoute path="/question/:id" component={QuestionPage} />
+          <PrivateRoute path="/tag/:name" component={TagPage}/>
           {/* <Route path="/question/:id" component={QuestionPage} /> */}
           {/* <Route path="/ask" component={Ask} />
           <Route path="/profile" component={Profile} /> */}
