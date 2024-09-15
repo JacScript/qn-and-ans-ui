@@ -63,7 +63,6 @@ const TagPage = ({match}) => {
           withCrendetials: true,
         });
         const data = response.data.questions;
-        // console.log(data);
         setQuestions(data);
       } catch (error) {
         console.log(error.message);
@@ -129,7 +128,7 @@ const TagPage = ({match}) => {
             key={question._id}
             title={question.title}
             id={question._id}
-            tags={question.tags.map((tag, idx) => ({
+            tags={question.tags.map((tag) => ({
               key: tag._id,  // Extract tag ID
               name: tag.name // Extract tag name
             }))} 

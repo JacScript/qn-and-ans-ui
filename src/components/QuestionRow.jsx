@@ -31,9 +31,9 @@ const QuestionRow = ({title,id, username, tags, age}) => {
           </Link>
           <div className="flex justify-between">
             <div className="flex">
-              {tags.map((tag) => (
+              {tags.map((tag,idx) => (
                 <Tag
-                  key={tag._id} // Add a unique key for each element in the list
+                  key={idx} // Add a unique key for each element in the list
                   variant="text-[#9cc3db] bg-[#3e4a52] p-[4px] rounded-[4px] text-[.9rem] mr-[6px]"
                   name={tag.name}                  
                 />
