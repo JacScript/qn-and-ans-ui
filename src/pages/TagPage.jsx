@@ -178,7 +178,7 @@ const TagPage = ({ match }) => {
         { withCredentials: true }
       );
       setFollowing(true); // Set following to true after follow action
-      console.log(response.data); // Log the response data to the console
+      // console.log(response.data); // Log the response data to the console
     } catch (error) {
       console.error(error); // Log the error to the console
     }
@@ -197,7 +197,7 @@ const TagPage = ({ match }) => {
         }
       );
       setFollowing(false); // Set following to false after unfollow action
-      console.log(response.data); // Log the response data to the console
+      // console.log(response.data); // Log the response data to the console
     } catch (error) {
       console.error("Error unfollowing the tag", error); // Log the error to the console
     }
@@ -215,7 +215,7 @@ const TagPage = ({ match }) => {
         { withCredentials: true }
       );
       setFollowing(response.data.isFollowing); // Assuming the response contains `isFollowing`
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error("Error checking follow status", error);
       setFollowing(false); // Set to false if there's an error
