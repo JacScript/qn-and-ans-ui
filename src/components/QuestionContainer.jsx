@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import QuestionRow from "./QuestionRow";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux"; // Import useSelector to access Redux state
 import Ask from "../pages/Ask";
 import axios from "axios";
 // import { getAllQuestions } from "../Store/QuestionSlice";
@@ -11,12 +12,44 @@ const QuestionContainer = (props) => {
   // const dispatch = useDispatch();
   // const {questions,loading, error } = useSelector((state) => state.questions);
 
+  const { userInfo } = useSelector((state) => state.auth);
+
+
+  // useEffect(() => {
+  //   const fetchQuestions = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/questions", {
+  //         withCrendetials: true,
+  //       });
+  //       const data = response.data;
+  //       console.log(data);
+  //       setQuestions(data);
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
+
+  //   fetchQuestions();
+  // }, []);
+
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/questions", {
-          withCrendetials: true,
-        });
+        let response;
+  
+        if (userInfo) {
+          // User is logged in, fetch questions with userId in the route path
+          response = await axios.get(`http://localhost:3000/questions/by-followed-tags/${userInfo.id}`, {
+            withCredentials: true,
+          });
+        } else {
+          // User is not logged in, fetch all questions
+          response = await axios.get("http://localhost:3000/questions", {
+            withCredentials: true,
+          });
+        }
+  
         const data = response.data;
         console.log(data);
         setQuestions(data);
@@ -24,9 +57,10 @@ const QuestionContainer = (props) => {
         console.log(error.message);
       }
     };
-
+  
     fetchQuestions();
-  }, []);
+  }, [userInfo]);
+  
 
   return (
     <div className="bg-[#393939] w-screen h-full">
