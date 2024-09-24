@@ -37,6 +37,7 @@ const QuestionContainer = (props) => {
     const fetchQuestions = async () => {
       try {
         let response;
+        console.log(userInfo)
   
         if (userInfo) {
           // User is logged in, fetch questions with userId in the route path
