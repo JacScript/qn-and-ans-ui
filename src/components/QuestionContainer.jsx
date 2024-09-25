@@ -33,17 +33,54 @@ const QuestionContainer = (props) => {
   // }, []);
 
 
+  // useEffect(() => {
+  //   const fetchQuestions = async () => {
+  //     try {
+  //       let response;
+  //       console.log(userInfo)
+  
+  //       if (userInfo) {
+  //         // User is logged in, fetch questions with userId in the route path
+  //         response = await axios.get(`http://localhost:3000/questions/by-followed-tags/${userInfo.id}`, {
+  //           withCredentials: true,
+  //         });
+  //       } else {
+  //         // User is not logged in, fetch all questions
+  //         response = await axios.get("http://localhost:3000/questions", {
+  //           withCredentials: true,
+  //         });
+  //       }
+  
+  //       const data = response.data;
+  //       console.log(data);
+  //       setQuestions(data);
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
+  
+  //   fetchQuestions();
+  // }, [userInfo]);
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         let response;
-        console.log(userInfo)
+        console.log(userInfo);
   
         if (userInfo) {
-          // User is logged in, fetch questions with userId in the route path
+          // User is logged in, attempt to fetch questions by followed tags
           response = await axios.get(`http://localhost:3000/questions/by-followed-tags/${userInfo.id}`, {
             withCredentials: true,
           });
+  
+          // If the response is empty or null, fetch all questions instead
+          if (!response.data || response.data.length === 0) {
+            console.log("No questions found for followed tags, fetching all questions.");
+            response = await axios.get("http://localhost:3000/questions", {
+              withCredentials: true,
+            });
+          }
         } else {
           // User is not logged in, fetch all questions
           response = await axios.get("http://localhost:3000/questions", {
@@ -52,7 +89,7 @@ const QuestionContainer = (props) => {
         }
   
         const data = response.data;
-        console.log(data);
+        // console.log(data);
         setQuestions(data);
       } catch (error) {
         console.log(error.message);
@@ -61,6 +98,7 @@ const QuestionContainer = (props) => {
   
     fetchQuestions();
   }, [userInfo]);
+  
   
 
   return (

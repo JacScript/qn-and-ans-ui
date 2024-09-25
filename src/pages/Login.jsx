@@ -6,16 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
-// import Axios from "axios";
-// import {  Link } from "react-router-dom";
-// import {LoginUser} from "../Store/UserSlice.js";
+
 
 import "../App.css";
 
 
 const Login = () => { 
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+ 
 
   // State for form fields
   const [email, setEmail] = useState("");
