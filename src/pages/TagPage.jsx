@@ -284,6 +284,7 @@ const TagPage = ({ match }) => {
             }))}
             age={question.createdAt}
             username={question.user.username}
+            userid={question.user._id}
           />
         ))}
     </div>

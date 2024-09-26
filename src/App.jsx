@@ -16,6 +16,7 @@ import PrivateRoute from "./pages/PrivateRoute.jsx";
 import TagPage from "./pages/TagPage.jsx";
 
 import "./App.css";
+import UserPage from "./pages/UserPage.jsx";
 
 
 // Axios.defaults.withCredentials = true;
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/error" component={ErrorPage} />
+          <Route path="/users/:id" component={UserPage}/>
           {/* PrivateRoutes */}
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/ask" component={Ask} />

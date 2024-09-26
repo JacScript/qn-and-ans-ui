@@ -65,9 +65,7 @@ const QuestionContainer = (props) => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        let response;
-        console.log(userInfo);
-  
+        let response;  
         if (userInfo) {
           // User is logged in, attempt to fetch questions by followed tags
           response = await axios.get(`http://localhost:3000/questions/by-followed-tags/${userInfo.id}`, {
@@ -126,6 +124,7 @@ const QuestionContainer = (props) => {
             }))} 
             age={question.createdAt}
             username={question.user.username} // Extract username
+            userid={question.user._id} // Extract userid
           />
         ))}
       {/* </div> */}

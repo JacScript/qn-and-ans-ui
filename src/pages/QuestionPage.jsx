@@ -10,6 +10,7 @@ import BlueLinkButon from "../components/AddComment.jsx";
 import CommentForm from "../components/CommentForm.jsx";
 import AnswerComponent from "../components/PostAnswer.jsx";
 import VotingAnswerButton from "../components/VotingAnswerButton.jsx";
+import UserLink from "../components/UserLink.jsx";
 // import { configureStore } from "@reduxjs/toolkit";
 
 const QuestionPage = (props) => {
@@ -43,7 +44,8 @@ const QuestionPage = (props) => {
         const commentsData = commentsResponse.data.comments;
         const answersData = answersResponse.data.answer;
 
-
+  
+        // console.log(commentsData)
         setQuestion(questionData);
         setComments(commentsData);
         setAnswers(answersData);
@@ -149,10 +151,12 @@ const QuestionPage = (props) => {
                       day: "numeric",
                     })}
                   </span>
+                <UserLink variant="text-[#3ca4ff] hover:underline" user={question.user.username} id={question.user._id}/>
+                  
                   {/* <span className="mr-4 italic  text-[#888]">{question.createdAt}</span> */}
-                  <Link to={"/users/" + props.id} className="text-[#3ca4ff]">
+                  {/* <Link to={"/users/" + props.id} className="text-[#3ca4ff]">
                     {question.user.email}
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>
@@ -176,10 +180,12 @@ const QuestionPage = (props) => {
                     <p className="ml-1">
                       {" "}
                       &nbsp;--&nbsp;
-                      <Link to={"/user/" + props.id} className="text-[#3ca4ff]">
+                <UserLink variant="text-[#3ca4ff]" user={comment.user?.username} id={comment.user?._id}/>
+                      
+                      {/* <Link to={"/user/" + props.id} className="text-[#3ca4ff]">
                         {" "}
-                        {/* {comment.user?.email} */}
-                      </Link>
+                        {comment.user?.username}
+                      </Link> */}
                       <span className="italic ml-2 text-[#888]">
                       {new Date(comment.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",

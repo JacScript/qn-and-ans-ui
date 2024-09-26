@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import Tag from './Tag';
+import UserLink from './UserLink';
 
 
-const QuestionRow = ({title,id, username, tags, age}) => {
+const QuestionRow = ({title,id, username, tags, age, userid}) => {
   return (
     <div className="">
       <div className="bg-[rgba(255,255,255,.1)] py-[px] w-11/12 mx-auto flex justify-between border-t-2 border-t-[#555]">
@@ -48,9 +49,10 @@ const QuestionRow = ({title,id, username, tags, age}) => {
                       day: "numeric",
                     })}
                    </span>
-                <a className="text-[#3ca4ff]" href="">
-                  {username}
-                </a>
+                <UserLink variant="text-[#3ca4ff] hover:underline" user={username} id={userid}/>
+                {/* <UserLink className="text-[#3ca4ff]" > */}
+                  {/* {username} */}
+                {/* </UserLink> */}
               </p>
             </div>
           </div>
