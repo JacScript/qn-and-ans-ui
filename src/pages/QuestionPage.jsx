@@ -11,6 +11,7 @@ import CommentForm from "../components/CommentForm.jsx";
 import AnswerComponent from "../components/PostAnswer.jsx";
 import VotingAnswerButton from "../components/VotingAnswerButton.jsx";
 import UserLink from "../components/UserLink.jsx";
+import { Helmet } from "react-helmet";
 // import { configureStore } from "@reduxjs/toolkit";
 
 const QuestionPage = (props) => {
@@ -45,7 +46,7 @@ const QuestionPage = (props) => {
         const answersData = answersResponse.data.answer;
 
   
-        // console.log(commentsData)
+        // console.log(answersData)
         setQuestion(questionData);
         setComments(commentsData);
         setAnswers(answersData);
@@ -112,9 +113,13 @@ const QuestionPage = (props) => {
 
   return (
     <div className="text-white bg-[#393939] w-screen h-full pb-20">
+     
       <Header />
       {question && (
         <div className="flex flex-col w-11/12 h-full mx-auto">
+           <Helmet>
+        <title>{question.title} - StackOverCloned</title>
+      </Helmet>
           <div className="my-8 border-b-[1px] pb-[10px] border-[rgba(255,255,255,.1)]">
             <h1 className=" text-3xl text-white">{question.title}</h1>
           </div>
@@ -232,9 +237,32 @@ const QuestionPage = (props) => {
                       initialvotes={answer.votes}
                     />{" "}
                   </div>
-                  <div className="flex justify-center items-center">
-                    {answer.text}
+
+                  <div className="flex justify-center items-center py-1 h-full">
+                    <p>{answer.text}</p>
+                    <p className="ml-1">
+                      {" "}
+                      &nbsp;--&nbsp;
+                <UserLink variant="text-[#3ca4ff]" user={answer.user?.username} id={answer.user?._id}/>
+                      
+                      {/* <Link to={"/user/" + props.id} className="text-[#3ca4ff]">
+                        {" "}
+                        {comment.user?.username}
+                      </Link> */}
+                      <span className="italic ml-2 text-[#888]">
+                      {new Date(answer.createdAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                      </span>
+                    </p>
                   </div>
+                  {/* <div className="flex justify-center items-center bg-yellow-400">
+                    <div>{answer.text}</div>
+                  </div> */}
+
+
                 </div>
               ))}
           </div>

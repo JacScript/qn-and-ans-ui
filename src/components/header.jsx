@@ -58,7 +58,8 @@ const Header = () => {
           <div className="text-center pb-[px] flex justify-between gap-4 items-center px-4 w-full h-full mt-[15px]">
             {/* <Link to="/profile" className="flex-2">             */}
            <span className="flex-2">
-          <Link to="/profile">
+          <Link to={`/users/${userInfo.id}`}>
+          {/* <Link to="/profile"> */}
           {userInfo.username}
           </Link> 
             </span> 

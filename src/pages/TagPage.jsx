@@ -160,6 +160,7 @@ import Button from "../components/ButtonComponent";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import QuestionRow from "../components/QuestionRow";
+import { Helmet } from "react-helmet";
 
 const TagPage = ({ match }) => {
   const [following, setFollowing] = useState(null); // Initialize as null for loading state
@@ -244,6 +245,9 @@ const TagPage = ({ match }) => {
 
   return (
     <div className="bg-[#393939] w-screen h-screen">
+       <Helmet>
+        <title>StackoverCloned - {match.params.name} questions</title>
+      </Helmet>
       <Header />
       <div className="flex justify-between py-[px] px-[20px] text-white my-6">
         <h1 className="text-[1.5rem]">{match.params.name}</h1>
