@@ -101,8 +101,8 @@ const QuestionContainer = (props) => {
 
   return (
     <div className="bg-[#393939] w-screen h-full">
-      <div className="flex justify-between py-[px] px-[20px] text-white my-6">
-        <h1 className="text-[1.5rem]">Top Question</h1>
+      <div className="flex justify-between py-[px] px-[20px] text-white my-6 bg-red-700">
+        <h1 className="max-md:text-[15px] text-[1.5rem]">Top Question</h1>
         <Link
           to={"/Ask"}
           className="bg-[#378ad3] text-[#fff] rounded-[5px] pt-[8px] flex align-middle px-[10px] text-sm"

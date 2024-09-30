@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
+import { Helmet } from 'react-helmet';
+
 // import { useHistory } from 'react-router-dom'
 
 const Profile = () => {
@@ -65,6 +67,9 @@ const Profile = () => {
 
   return (
     <div className="bg-[#393939] w-screen h-screen">
+      <Helmet>
+        <title>StackOverCloned- Your Profile</title>
+      </Helmet>
       <Header />
       <div className="px-[30px] py-[20px]">
         <h1 className="text-[1.5rem] text-white">Profile</h1>

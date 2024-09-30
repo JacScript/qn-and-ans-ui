@@ -10,6 +10,7 @@ import { setCredentials } from "../slices/authSlice";
 // import { SignUpUser } from "../Store/UserSlice.js";
 
 import "../App.css";
+import { Helmet } from "react-helmet";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -67,6 +68,9 @@ const SignUp = () => {
 
   return (
     <div className="sign-up-container bg-[#393939] w-screen h-screen">
+       <Helmet>
+        <title>StackOverCloned- Sign Up</title>
+      </Helmet>
       <form className="sign-up-form" action="#">
         <h1 className="font-bold text-center text-2xl mb-4">Sign Up</h1>
         {/* {error && 

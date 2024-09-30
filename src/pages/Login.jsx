@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 
 
 import "../App.css";
+import { Helmet } from "react-helmet";
 
 
 const Login = () => { 
@@ -68,6 +69,9 @@ const Login = () => {
 
   return (
     <div className="bg-[#393939] w-screen h-screen">
+       <Helmet>
+        <title>StackOverCloned- Login</title>
+      </Helmet>
       <Header />
 
       <div className="sign-up-container">
