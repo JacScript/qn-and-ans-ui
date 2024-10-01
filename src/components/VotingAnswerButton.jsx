@@ -55,12 +55,12 @@ const VotingAnswerButton = ({ questionId, initialvotes, answerId }) => {
   };
 
   return (
-    <div className="w-5 h-[48px] flex flex-col justify-center mr-4">
+    <div className="w-5 max-md:h-[30px]  h-[48px] flex flex-col justify-center my-1 mr-4">
       <button
-           className={`text-center border-solid ${userVote==="up" ? 'border-b-[#d64a17]' : 'border-b-[#888]'}  border-b-8 border-x-transparent cursor-pointer border-x-8 border-t-0`}
+           className={`text-center border-solid ${userVote==="up" ? 'border-b-[#d64a17]' : 'border-b-[#888]'}  border-b-8 border-x-transparent max-md:text-[0.2rem] cursor-pointer border-x-8 border-t-0`}
         onClick={() => handleVote("up")}
       />
-      <p className="w-5  text-xs text-center text-[#888]">{votes}</p>
+      <p className="w-5 max-md:text-[8px] max-md:font-[950] text-xs text-center text-[#888]">{votes}</p>
       <button
         className={`border-solid  text-center ${userVote==="down" ? 'border-t-[#d64a17]' : 'border-t-[#888]'}  border-t-8 border-x-transparent cursor-pointer border-x-8 border-b-0`}
         onClick={() => handleVote("down")}      

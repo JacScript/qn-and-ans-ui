@@ -18,7 +18,7 @@ const Home = () => {
   // // }, [history])
 
   return (
-    <div className='bg-[#393939] w-screen h-screen'>
+    <div className='bg-[#393939] w-screen min-h-screen'>
       <Helmet>
         <title>StackOverCloned-Home</title>
       </Helmet>

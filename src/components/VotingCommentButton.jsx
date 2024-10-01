@@ -60,7 +60,7 @@ const VotingCommentButton = ({commentID, initialvotes}) => {
    
      {
         votes > 0 && (
-            <div className="flex justify-between items-center w-1/2 text-[.9em] ml-1">{votes}</div>
+            <div className="flex justify-between items-center w-1/2 max-md:text-[.7em] text-[.9em] ml-1">{votes}</div>
         )
      }
       {/* <div className="flex justify-between items-center w-1/2 text-[.9em] ml-1">{votes}</div> */}

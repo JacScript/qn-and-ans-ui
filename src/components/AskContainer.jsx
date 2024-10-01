@@ -28,7 +28,7 @@ const AskContainer = () => {
 
 
       if (response.data) {
-        console.log(response.data);
+        // console.log(response.data);
         setRedirect("/question/" + response.data.question._id);
       }
 

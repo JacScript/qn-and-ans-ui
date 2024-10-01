@@ -54,14 +54,14 @@ const VotingButton = ({ questionId, initialvotes }) => {
   return (
     <div className="">
       <button
-        className={`border-0 bg-none text-[1.6em] ${userVote === 'up' ? 'text-[#d64a17]' : 'text-[#888]'} cursor-pointer w-[50px] text-center`}
+        className={`border-0 bg-none max-md:text-[1em] text-[1.6em] ${userVote === 'up' ? 'text-[#d64a17]' : 'text-[#888]'} cursor-pointer w-[50px] text-center`}
         onClick={() => handleVote("up")}
       >
         &#9650;
       </button>
-      <p className="w-[50px] text-center text-[#888]">{votes}</p>
+      <p className="w-[50px] text-center max-md:text-[.7em] text-[#888]">{votes}</p>
       <button
-        className={`border-0 bg-none text-[1.6em] ${userVote === "down" ? "text-[#d64a17]" : 'text-[#888]'} cursor-pointer w-[50px] text-center`}
+        className={`border-0 bg-none max-md:text-[1em] text-[1.6em] ${userVote === "down" ? "text-[#d64a17]" : 'text-[#888]'} cursor-pointer w-[50px] text-center`}
         onClick={() => handleVote("down")}
       >
         &#9660;

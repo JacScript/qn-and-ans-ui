@@ -34,7 +34,7 @@ const AnswerComponent = ({questionId, userId,setAnswers, answers}) => {
 
   return (
     <div className="w-full mx-auto">
-      <div>
+      <div className="">
         <h1>Your Answer</h1>
       </div>
 

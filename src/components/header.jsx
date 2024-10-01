@@ -29,17 +29,17 @@ const Header = () => {
 
 
   return (
-    <div className="text-white flex  max-md:h-10 w-full shadow-sm shadow-[rgba(0,0,0,.2)]">
-      <div className="flex-[1]">
+    <div className="text-white flex  max-md:h-10 shadow-sm shadow-[rgba(0,0,0,.2)] ">
+      <div className="flex-[1] ">
         <Link
           to={"/"}
           className="h-full pb-[8px]  flex justify-center items-center text-[#fff] py-0 px-[px]"
         >
           <i className="fa-brands fa-stack-overflow mt-[10px]  text-[30px] inline-block float-left" />
-          <a href="#" className="pl-[5px] inline-block pt-[15px] font-[300] max-md:text-[15px]">
+          <p href="#" className="pl-[5px] inline-block pt-[15px] font-[300] max-md:text-[15px]">
             {" "}
             stack <span className="font-normal">overcloned</span>
-          </a>
+          </p>
         </Link>
       </div>
 
@@ -53,11 +53,11 @@ const Header = () => {
         </form>
       </div>
 
-      <div className="flex-[1] h-full">
+      <div className="flex-[1] w-full">
         {userInfo ? (
-          <div className="text-center pb-[px] flex justify-between gap-4 items-center px-4 w-full h-full mt-[15px]">
+          <div className="text-center max-md:flex-[1] pb-[px] flex justify-between gap-4 items-center pl-4 w-full h-full ">
             {/* <Link to="/profile" className="flex-2">             */}
-           <span className="flex-2">
+           <span className="flex-2 max-md:text-[15px]">
           <Link to={`/users/${userInfo.id}`}>
           {/* <Link to="/profile"> */}
           {userInfo.username}
@@ -69,7 +69,7 @@ const Header = () => {
             </span> */}
           </div>
         ) : (
-          <div className="text-center max-md:flex-[1] pb-[px] flex justify-center gap-4 items-center  w-full h-full md:mt-[25px]">
+          <div className="text-center max-md:flex-[1] pb-[px] flex justify-center gap-4 items-center h-full">
             <Link to="/login" className="max-md:text-[15px] ">
               Log In
             </Link>

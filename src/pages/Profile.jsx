@@ -117,7 +117,7 @@ const Profile = () => {
               <Button
                 title={isLoading ? "Loading...." : "Update"}
                 onClick={submitHandler}
-                variant="bg-[#378ad3] text-[#fff] rounded-[5px] pt-[8px] flex align-middle px-[10px] text-sm"
+                variant="bg-[#378ad3] text-[#fff] rounded-[5px] py-[4px] flex items-center justify-center align-middle px-[10px] text-sm"
               />
             </div>
 
@@ -125,7 +125,7 @@ const Profile = () => {
               <Button
                 title={isLoading ? "Loading...." : "LogOut"}
                 onClick={logoutHandler}
-                variant="bg-[#378ad3] text-[#fff] rounded-[5px] pt-[8px] flex align-middle px-[10px] text-sm"
+                variant="bg-[#378ad3] text-[#fff] rounded-[5px] py-[4px] flex items-center justify-center align-middle px-[10px] text-sm"
               />
             </div>
           </div>

@@ -64,7 +64,7 @@ const UserPage = ({match}) => {
 
 
   return (
-    <div className="bg-[#393939] w-screen h-screen">
+    <div className="bg-[#393939] w-screen min-h-screen">
       {!!userInfo && (
          <Helmet>
          <title>User: {userInfo.username} - StackOverCloned</title>
@@ -72,12 +72,12 @@ const UserPage = ({match}) => {
       )}
       <Header />
       <div className="px-[30px] py-[20px]">
-        <div className='flex justify-between'>
+        <div className='flex justify-between max-md:text-[.9rem] '>
           <div>
-            <h1 className="text-[1.5rem] text-white">
+            <h1 className="max-md:text-[.9rem] capitalize text-[1.5rem] text-white">
               {userDetails && userDetails.username}
             </h1>
-            <h1 className="text-[1.5rem] text-white">
+            <h1 className="text-[1.5rem] max-md:text-[.9rem] text-white">
               {" "}
               Total Number of Points: {sumVotes}
             </h1>
@@ -87,7 +87,7 @@ const UserPage = ({match}) => {
             {userInfo && userDetails && userInfo.id === userDetails._id && (
               <Link
                 to={"/profile"}
-                className="bg-[#378ad3] text-[#fff] rounded-[5px] pt-[8px] flex align-middle px-[10px] text-sm"
+                className="bg-[#378ad3] text-[#fff] rounded-[5px] py-[4px] flex items-center justify-center align-middle px-[10px] max-md:text-[.9rem] text-sm"
               >
                 Edit Profile
               </Link>
@@ -109,7 +109,7 @@ const UserPage = ({match}) => {
                 <Link
                   key={idx}
                   to={`/question/${voteInfo._id}`}
-                  className="bg-[rgba(255,255,255,.1)] pt-[15px] pr-[15px] pb-[15px] w-full mx-auto flex items-center gap-4 border-t-2 border-t-[#555] text-white"
+                  className="bg-[rgba(255,255,255,.1)] md:pt-[15px] px-[15px] max-md:py-[5px] md:pb-[15px] w-full mx-auto flex items-center gap-4 border-t-2 border-t-[#555] text-white"
                 >
                   <div className="text-right text-xl text-[#bbb]">
                     {" "}
